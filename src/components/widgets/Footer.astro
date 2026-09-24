@@ -25,14 +25,13 @@ const { links = [] } = Astro.props;
         {
           links.map(({ title, links }) => (
             <div>
-              <!-- Título da coluna aumentado para text-lg -->
-              <div class="font-bold text-lg mb-3">{title}</div>
+              <div class="font-bold text-lg mb-3 text-[#4B2F13]">{title}</div>
               {links && Array.isArray(links) && links.length > 0 && (
                 <ul class="text-base space-y-1">
                   {links.map(({ text, href }) => (
                     <li>
                       <a
-                        class="text-muted hover:text-gray-700 dark:text-gray-400 transition duration-150 ease-in-out"
+                        class="text-muted dark:text-gray-400 transition duration-150 ease-in-out"
                         href={href}
                       >
                         {text}

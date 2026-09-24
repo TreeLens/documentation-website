@@ -26,7 +26,7 @@ export const footerData = {
         { text: 'Inês Batista', href: 'https://github.com/InesLBatista' },
         { text: 'Luís Correia', href: 'https://github.com/LuisPCNeri' },
         { text: 'Maria Quinteiro', href: 'https://github.com/Maria0claraa' },
-        { text: 'Marcos', href: 'https://github.com/MarcosCost' },
+        { text: 'Marcos Costa', href: 'https://github.com/MarcosCost' },
       ],
     },
     {

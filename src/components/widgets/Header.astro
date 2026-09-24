@@ -54,7 +54,7 @@ const isActive = (href?: string) => typeof href === 'string' && `/${trimSlash(hr
 // NOVO: botões em pílula (GitHub / Google Drive / Jira) mostrados no header.
 // Ajusta os hrefs para os teus repositórios/contas reais.
 const appLinks = [
-  { text: 'GitHub', href: 'https://github.com/your-org/your-repo', icon: 'tabler:brand-github' },
+  { text: 'GitHub', href: 'https://github.com/TreeLens', icon: 'tabler:brand-github' },
   { text: 'Google Drive', href: 'https://drive.google.com', icon: 'tabler:brand-google-drive' },
   { text: 'Jira', href: 'https://your-team.atlassian.net', icon: 'tabler:brand-jira' },
 ];
@@ -113,7 +113,7 @@ const persistKey = `header-${Array.from(
         aria-label="Main navigation"
       >
         <ul
-          class="flex flex-col lg:flex-row lg:self-center w-full lg:w-auto text-xl lg:text-base tracking-[0.01rem] font-medium lg:justify-center"
+          class="flex flex-col lg:flex-row lg:self-center w-full lg:w-auto text-xl lg:text-[1.05rem] tracking-[0.01rem] font-normal lg:justify-center"
         >
           {
             links.map(({ text, href, links }) => (
@@ -122,7 +122,7 @@ const persistKey = `header-${Array.from(
                   <>
                     <button
                       type="button"
-                      class="text-[#4B2F13] dark:text-white hover:text-link dark:hover:text-white px-4 py-2.5 flex items-center whitespace-nowrap"
+                      class="text-[#4B2F13] dark:text-white px-4 py-2.5 flex items-center whitespace-nowrap"
                     >
                       {text}{' '}
                       <Icon
@@ -135,7 +135,7 @@ const persistKey = `header-${Array.from(
                         <li>
                           <a
                             class:list={[
-                              'first:rounded-t last:rounded-b lg:hover:bg-gray-100 hover:text-link dark:hover:text-white dark:hover:bg-gray-700 py-2 px-5 block whitespace-nowrap',
+                              'first:rounded-t last:rounded-b lg:hover:bg-gray-100 dark:hover:bg-gray-700 py-2 px-5 block whitespace-nowrap',
                               { 'aw-link-active': isActive(href2) },
                             ]}
                             href={href2}
@@ -149,7 +149,7 @@ const persistKey = `header-${Array.from(
                 ) : (
                   <a
                     class:list={[
-                      'text-[#4B2F13] dark:text-white hover:text-link dark:hover:text-white px-4 py-2.5 flex items-center whitespace-nowrap',
+                      'text-[#4B2F13] dark:text-white px-4 py-2.5 flex items-center whitespace-nowrap',
                       { 'aw-link-active': isActive(href) },
                     ]}
                     href={href}
@@ -176,7 +176,7 @@ const persistKey = `header-${Array.from(
                   href={href}
                   target="_blank"
                   rel="noopener"
-                  class="flex items-center gap-1.5 rounded-full border border-gray-200 dark:border-slate-600 text-[#623B14] dark:text-white px-4 py-2.5 text-base font-medium hover:bg-gray-50 dark:hover:bg-slate-800 whitespace-nowrap"
+                  class="flex items-center gap-1.5 rounded-full border border-gray-200 dark:border-slate-600 text-[#623B14] dark:text-white px-4 py-2.5 text-[1.05rem] font-normal hover:bg-gray-50 dark:hover:bg-slate-800 whitespace-nowrap"
                 >
                   {text} <Icon name={icon} class="w-4 h-4" />
                 </a>
@@ -187,8 +187,8 @@ const persistKey = `header-${Array.from(
             {
               showToggleTheme && (
                 <ToggleTheme
-                  iconClass="w-6 h-6 lg:w-5 lg:h-5 lg:inline-block"
-                  class="text-[#4B2F13] dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm py-2.5 px-2.5 inline-flex items-center"
+                  iconClass="w-6 h-6 lg:w-6 lg:h-6 lg:inline-block"
+                  class="text-[#4B2F13] dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg py-2.5 px-2.5 inline-flex items-center"
                 />
               )
             }
