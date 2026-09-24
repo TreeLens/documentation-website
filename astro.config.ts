@@ -26,6 +26,12 @@ const whenExternalScripts = (items: (() => AstroIntegration) | (() => AstroInteg
 export default defineConfig({
   output: 'static',
 
+  // Hides the floating dev toolbar (only ever shown while running `astro dev`;
+  // it's never included in the production build).
+  devToolbar: {
+    enabled: false,
+  },
+
   // Prefetch links as they enter the viewport for snappier navigations
   // (works together with <ClientRouter />, which enables prefetch by default).
   prefetch: {
