@@ -1,4 +1,6 @@
 ---
+import { Image } from 'astro:assets';
+import landingImage from '~/assets/images/landing-page.png';
 ---
 
 <section class="relative md:-mt-[76px] not-prose">
@@ -30,8 +32,8 @@
 
         <!-- Coluna da Direita: Imagem -->
         <div class="relative flex justify-center">
-          <img
-            src="src/assets/images/landing-page.png"
+          <Image
+            src={landingImage}
             alt="TreeLens illustration"
             class="w-full max-w-2xl h-auto object-contain"
           />
