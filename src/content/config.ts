@@ -1,5 +1,4 @@
-import { defineCollection } from 'astro:content';
-import { z } from 'astro/zod';
+import { defineCollection, z } from 'astro:content';
 import { glob } from 'astro/loaders';
 
 const metadataDefinition = () =>
@@ -8,7 +7,7 @@ const metadataDefinition = () =>
       title: z.string().optional(),
       ignoreTitleTemplate: z.boolean().optional(),
 
-      canonical: z.url().optional(),
+      canonical: z.string().url().optional(),
 
       robots: z
         .object({
@@ -57,12 +56,6 @@ const postCollection = defineCollection({
     title: z.string(),
     excerpt: z.string().optional(),
     image: z.string().optional(),
-    /** Alternative text for the cover image. Leave empty for decorative stock photos. */
-    imageAlt: z.string().optional(),
-
-    category: z.string().optional(),
-    tags: z.array(z.string()).optional(),
-    author: z.string().optional(),
 
     metadata: metadataDefinition(),
   }),

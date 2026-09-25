@@ -120,10 +120,9 @@
 }
 
 /* Current page in the header navigation (set server-side in Header.astro and
-   kept in sync on client-side navigations). Override --aw-color-link in
-   CustomStyles.astro to change the colour. */
+   kept in sync on client-side navigations). */
 #header nav .aw-link-active {
-  @apply text-link;
+  color: #4B2F13;
 }
 
 .dd *:first-child {

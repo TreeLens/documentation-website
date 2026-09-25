@@ -1,0 +1,30 @@
+---
+import { getCollection, getEntry, render } from 'astro:content';
+import Layout from '~/layouts/PageLayout.astro';
+import HeroText from '~/components/widgets/HeroText.astro';
+
+export async function getStaticPaths() {
+  const meetings = await getCollection('meetings');
+  return meetings.map((meeting) => ({
+    params: { slug: meeting.id },
+  }));
+}
+
+const { slug } = Astro.params;
+const meeting = await getEntry('meetings', slug);
+
+if (!meeting) throw new Error(`Meeting not found: ${slug}`);
+
+const { Content } = await render(meeting);
+const metadata = { title: meeting.data.title };
+---
+
+<Layout metadata={metadata}>
+  <section class="max-w-4xl mx-auto mt-8 p-6 bg-white rounded-2xl">
+    <HeroText title={meeting.data.title} />
+    <div class="mx-auto px-6 max-w-3xl prose prose-md lg:prose-xl dark:prose-invert mt-8">
+      <Content />
+    </div>
+    <a href="/meetings" class="text-primary block mt-6 font-medium">← Back to Meetings</a>
+  </section>
+</Layout>
