@@ -2,6 +2,7 @@
 import { getCollection, getEntry, render } from 'astro:content';
 import Layout from '~/layouts/PageLayout.astro';
 import HeroText from '~/components/widgets/HeroText.astro';
+import { getPermalink } from '~/utils/permalinks';
 
 export async function getStaticPaths() {
   const meetings = await getCollection('meetings');
@@ -25,6 +26,8 @@ const metadata = { title: meeting.data.title };
     <div class="mx-auto px-6 max-w-3xl prose prose-md lg:prose-xl dark:prose-invert mt-8">
       <Content />
     </div>
-    <a href="/meetings" class="text-primary block mt-6 font-medium">← Back to Meetings</a>
+    <a href={getPermalink('/meetings')} class="...">
+    Back to Meetings
+    </a>
   </section>
 </Layout>
