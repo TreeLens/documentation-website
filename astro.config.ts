@@ -25,6 +25,8 @@ const whenExternalScripts = (items: (() => AstroIntegration) | (() => AstroInteg
 
 export default defineConfig({
   output: 'static',
+  site: 'https://treelens.github.io',
+  base: '/documentation-website',
 
   // Hides the floating dev toolbar (only ever shown while running `astro dev`;
   // it's never included in the production build).
