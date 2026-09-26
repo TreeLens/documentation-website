@@ -123,7 +123,7 @@ export default defineConfig({
     // Emit responsive styles for the native <Image layout=…> used by
     // src/components/common/Image.astro (local images). Utility classes on
     // each usage still win, since these styles use low-specificity selectors.
-    responsiveStyles: true,
+    responsiveStyles: false,
   },
 
   markdown: {

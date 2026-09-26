@@ -1,0 +1,47 @@
+---
+import Layout from '~/layouts/PageLayout.astro';
+import HeroText from '~/components/widgets/HeroText.astro';
+import { milestones } from '~/data/milestones';
+import { getPermalink } from '~/utils/permalinks';
+
+export function getStaticPaths() {
+  return milestones.map((ms) => ({
+    params: { slug: ms.id },
+  }));
+}
+
+const { slug } = Astro.params;
+const milestone = milestones.find((ms) => ms.id === slug);
+
+if (!milestone) throw new Error(`Milestone not found: ${slug}`);
+
+const metadata = { title: milestone.title };
+---
+
+<Layout metadata={metadata}>
+  <section class="max-w-4xl mx-auto mt-8 p-6 bg-white rounded-2xl">
+    <HeroText title={`<span style='color:#623B14'>${milestone.title}</span>`} />
+
+    <div class="mx-auto px-6 max-w-3xl mt-8 mb-16 text-center">
+      <div class="flex flex-col items-center gap-4">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-16 h-16 text-[#CB8F30]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg>
+        <p class="text-2xl font-semibold text-[#623B14]">Coming Soon</p>
+        <p class="text-muted text-[1.05rem]">{milestone.description}</p>
+      </div>
+    </div>
+
+    <div class="mx-auto px-6 max-w-3xl mt-8 pb-4">
+      <a
+        href={getPermalink('/milestones')}
+        class="inline-flex items-center gap-2 text-[#623B14] font-medium text-base hover:opacity-75 transition-opacity duration-200"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
+        </svg>
+        Back to Milestones
+      </a>
+    </div>
+  </section>
+</Layout>

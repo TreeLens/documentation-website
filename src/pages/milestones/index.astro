@@ -1,0 +1,60 @@
+---
+import Layout from '~/layouts/PageLayout.astro';
+import HeroText from '~/components/widgets/HeroText.astro';
+import { milestones } from '~/data/milestones';
+import { getPermalink } from '~/utils/permalinks';
+
+const metadata = {
+  title: 'Milestones',
+};
+---
+
+<Layout metadata={metadata}>
+  <HeroText title="<span style='color:#623B14'>Milestones</span>" />
+
+  <section class="max-w-5xl mx-auto px-4 sm:px-6 pb-20">
+    <div class="flex flex-col gap-20">
+      {milestones.map((ms, index) => (
+        <div class:list={[
+          'flex flex-col md:flex-row items-center gap-10',
+          index % 2 !== 0 ? 'md:flex-row-reverse' : '',
+        ]}>
+
+          <!-- Imagem clicável -->
+          <a
+            href={getPermalink(`/milestones/${ms.id}`)}
+            class="w-full md:w-1/2 flex-shrink-0 block rounded-2xl overflow-hidden shadow-md hover:opacity-90 transition-opacity duration-200"
+          >
+            <img
+              src={ms.image.src}
+              alt={ms.title}
+              width={ms.image.width}
+              height={ms.image.height}
+              style="display:block; width:100%; height:auto;"
+              loading="lazy"
+            />
+          </a>
+
+          <!-- Texto -->
+          <div class="w-full md:w-1/2">
+            <!-- Data com ícone -->
+            <div class="flex items-center gap-1.5 text-muted text-sm mb-3">
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+              <span>{ms.date}</span>
+            </div>
+
+            <!-- Título clicável -->
+            <a href={getPermalink(`/milestones/${ms.id}`)} class="hover:opacity-75 transition-opacity duration-200">
+              <h1 class="text-4xl font-bold text-[#623B14] mb-4 font-heading">{ms.title}</h1>
+            </a>
+
+            <p class="text-[1.05rem] text-muted leading-relaxed">{ms.description}</p>
+          </div>
+
+        </div>
+      ))}
+    </div>
+  </section>
+</Layout>

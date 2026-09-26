@@ -76,7 +76,16 @@ const meetingsCollection = defineCollection({
   }),
 });
 
+const milestonesCollection = defineCollection({
+  loader: glob({ pattern: ['*.md', '*.mdx'], base: 'src/data/milestones' }),
+  schema: z.object({
+    title: z.string(),
+    date: z.coerce.date(),
+  }),
+});
+
 export const collections = {
   post: postCollection,
   meetings: meetingsCollection,
+  milestones: milestonesCollection,
 };

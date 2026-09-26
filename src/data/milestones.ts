@@ -8,25 +8,28 @@ export const milestones = [
     id: 'ms1',
     image: ms1,
     title: 'Milestone 1',
-    description: 'Inception Phase - Presentation of Lifecycle Objectives and Calendar for the Project.',
+    date: '29/09/2026',
+    description: 'Inception Phase - Presentation of the lifecycle objectives and calender for the project.',
   },
   {
     id: 'ms2',
     image: ms2,
     title: 'Milestone 2',
-    description: 'Elaboration Phase - Presentation of Personas, Use Cases, Class Diagram, and Architecture.',
+    date: '13/10/2026 – 20/10/2026',
+    description: 'Elaboration Phase - Presentation of the lifecycle architecture; the milestone is achieved when the architecture has been validated.',
   },
   {
     id: 'ms3',
     image: ms3,
     title: 'Milestone 3',
-    description: 'Construction Phase - Development of the main Use Cases and Deployment of MVC.',
+    date: '3/11/2026 – 10/11/2026',
+    description: 'Construction Phase - Digital accessibility and usability: legal requirements, technical risks, business plan.',
   },
   {
     id: 'ms4',
     image: ms4,
     title: 'Milestone 4',
-    description:
-      'Transition - All functionality has been developed! Complete Feature Set, User Testing & Validation, and Final Deployment.',
+    date: '15/12/2026 – 16/12/2026',
+    description: 'Transition - MVP. System component validation (performance, scalability, testing, security).',
   },
 ];
