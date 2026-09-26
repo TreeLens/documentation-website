@@ -1,0 +1,53 @@
+---
+import Image from '~/components/common/Image.astro';
+import { milestones } from '~/data/milestones';
+ 
+export interface Props {
+  // "horizontal": cards side by side, each clicking through to its section on
+  // the dedicated /milestones page. "vertical": stacked, used on that page
+  // itself — each card carries an id so the links above land right on it.
+  layout?: 'horizontal' | 'vertical';
+}
+ 
+const { layout = 'horizontal' } = Astro.props;
+const isHorizontal = layout === 'horizontal';
+---
+ 
+<div
+  class:list={[
+    'grid gap-8 md:gap-10',
+    isHorizontal ? 'grid-cols-2 lg:grid-cols-4' : 'grid-cols-1 max-w-md mx-auto md:mx-0',
+  ]}
+>
+  {
+    milestones.map(({ id, image, title, description }) => {
+      const card = (
+        <>
+          <Image
+            src={image}
+            alt={title}
+            width={400}
+            height={400}
+            class="w-full aspect-square object-cover rounded-lg shadow-[0_4px_30px_rgba(0,0,0,0.1)]"
+          />
+          <h3 class="text-xl font-bold mt-4">{title}</h3>
+          <p class="text-muted mt-2">{description}</p>
+        </>
+      );
+ 
+      return isHorizontal ? (
+        <a
+          href={`/milestones#${id}`}
+          class="block group transition hover:-translate-y-1"
+        >
+          {card}
+        </a>
+      ) : (
+        <div id={id} class="scroll-mt-28">
+          {card}
+        </div>
+      );
+    })
+  }
+</div>
+ 

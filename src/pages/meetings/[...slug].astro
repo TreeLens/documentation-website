@@ -22,12 +22,20 @@ const metadata = { title: meeting.data.title };
 
 <Layout metadata={metadata}>
   <section class="max-w-4xl mx-auto mt-8 p-6 bg-white rounded-2xl">
-    <HeroText title={meeting.data.title} />
-    <div class="mx-auto px-6 max-w-3xl prose prose-md lg:prose-xl dark:prose-invert mt-8">
+    <HeroText title={`<span style='color:#623B14'>${meeting.data.title}</span>`} />
+    <div class="mx-auto px-6 max-w-3xl prose prose-md lg:prose-xl dark:prose-invert mt-8 prose-li:my-0.5 prose-ul:my-1 prose-p:my-2 prose-headings:mt-6 prose-headings:mb-2 prose-headings:text-[#623B14] prose-p:text-muted prose-li:text-muted prose-strong:text-[#623B14]">
       <Content />
     </div>
-    <a href={getPermalink('/meetings')} class="...">
-    Back to Meetings
-    </a>
+    <div class="mx-auto px-6 max-w-3xl mt-12 pb-4">
+      <a
+        href={getPermalink('/meetings')}
+        class="inline-flex items-center gap-2 text-[#623B14] font-medium text-base hover:opacity-75 transition-opacity duration-200"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
+        </svg>
+        Back to Meetings
+      </a>
+    </div>
   </section>
 </Layout>
