@@ -9,6 +9,12 @@
 
 @custom-variant intersect (&:not([no-intersect]));
 
+/* Smooth scrolling + offset for the sticky navbar (~92px tall) */
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 100px;
+}
+
 @theme {
   --color-primary: var(--aw-color-primary);
   --color-secondary: var(--aw-color-secondary);

@@ -10,7 +10,6 @@ date: 2026-09-28
 👥 Participants
 - Francisco Baptista
 - Inês Batista
-- Luís Correia (?)
 - Maria Quinteiro
 - Marcos Costa
 
@@ -21,3 +20,6 @@ date: 2026-09-28
 - Organize the M1 presentation slides
 
 ---
+
+## 2. 💬 Discussion and Decisions
+- Discussion regarding the presentation slides; selecting the information to include so that the presentation is engaging, captures attention, and introduces the product.

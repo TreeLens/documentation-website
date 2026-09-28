@@ -22,8 +22,8 @@ import landingImage from '~/assets/images/landing-page.png';
 
           <div class="flex justify-center md:justify-start">
             <a
-              id="learn-more-btn"
-              class="inline-flex items-center justify-center bg-[#CB8F30] hover:bg-[#b07a28] text-white font-medium px-8 py-3 rounded-full shadow-lg transition-all duration-300 cursor-pointer"
+              href="#features"
+              class="inline-flex items-center justify-center bg-[#CB8F30] hover:bg-[#b07a28] text-white font-medium px-8 py-3 rounded-full shadow-lg transition-all duration-300"
             >
               Learn more
             </a>
@@ -118,13 +118,3 @@ import landingImage from '~/assets/images/landing-page.png';
   </div>
 </section>
 
-<script>
-  document.getElementById('learn-more-btn')?.addEventListener('click', () => {
-    const target = document.getElementById('features');
-    if (!target) return;
-    const navbarHeight = (document.getElementById('header') as HTMLElement)?.offsetHeight ?? 80;
-    const extraSpacing = 48;
-    const top = target.getBoundingClientRect().top + window.scrollY - navbarHeight - extraSpacing;
-    window.scrollTo({ top, behavior: 'smooth' });
-  });
-</script>
