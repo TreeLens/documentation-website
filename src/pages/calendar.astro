@@ -1,14 +1,569 @@
 ---
 import Layout from '~/layouts/PageLayout.astro';
- 
-const metadata = {
-  title: 'Calendar',
+import HeroText from '~/components/widgets/HeroText.astro';
+
+const metadata = { title: 'Calendar' };
+
+const phases = [
+  {
+    id: 'ms1',
+    milestone: 'MS1 – Inception',
+    date: '29/09',
+    status: 'done',
+    weeks: [
+      {
+        label: 'Deliverables',
+        items: [
+          {
+            category: 'Documentation',
+            points: [
+              'Project presentation: context, problem, goals, tasks, expected results, related work. Calendar, communication plan and assignments by team member.',
+              'Project calendar: tasks list by team member, project schedule for first semester, including an ideia of what to do on the second one.',
+              'Communication plan: documentation website, Git repository, Jira backlog, Discord server.',
+            ],
+          },
+          {
+            category: 'Development',
+            points: [
+              '(infra) Repositories and base environment.',
+              '(architecture) Candidate high-level architecture.',
+            ],
+          },
+          {
+            category: 'Model',
+            points: [
+              '(data) Start of manual annotation.',
+            ],
+          },
+        ],
+      },
+    ],
+  },
+  {
+    id: 'ms2',
+    milestone: 'MS2 – Elaboration',
+    date: '13–20/10',
+    status: 'upcoming',
+    weeks: [
+      {
+        label: '28/09 – 04/10',
+        items: [
+          {
+            category: 'Documentation',
+            points: [
+              'Actors and first use cases, organized.',
+              'Start the improved state of the art (related work + technologies).',
+              'First mock-ups.',
+            ],
+          },
+          {
+            category: 'Development',
+            points: [
+              '(infra) All services starting with docker-compose.',
+              '(nginx) Reverse proxy in front of frontend and API.',
+              '(frontend) Project scaffold and base map page.',
+              '(API) Project scaffold, health endpoint, base data models.',
+              '(queue) Broker running, basic publish/consume test.',
+              '(geospatial DB) Initial schema (zone, image, detection, tree).',
+              '(NoSQL DB) Initial job collection.',
+              '(object storage) Areas for raw images and videos.',
+            ],
+          },
+          {
+            category: 'Model',
+            points: [
+              '(data) Define the "tree" class and annotation rules.',
+              '(data) Annotate street-level images of the pilot area.',
+              '(training) Start of manual training.',
+              '(training) Log metrics.',
+            ],
+          },
+        ],
+      },
+      {
+        label: '05 – 09/10',
+        items: [
+          {
+            category: 'Documentation',
+            points: [
+              'Final state of the art.',
+              'Functional and non-functional requirements, with assumptions and dependencies.',
+              'Final use cases.',
+              'Deployment diagram with technologies.',
+              'Final mock-ups.',
+            ],
+          },
+          {
+            category: 'Development',
+            points: [
+              '(frontend) Select a zone, upload a file, list jobs.',
+              '(API) Create zone, upload, job status, list trees (GeoJSON).',
+              '(queue) API publishes a job, a worker consumes it.',
+              '(object storage) Store the original file.',
+              '(NoSQL DB) Job status (pending, processing, done, failed).',
+              '(geospatial DB) Store a tree with coordinates.',
+            ],
+          },
+          {
+            category: 'Model',
+            points: [
+              '(pipeline) Minimal flow: image, detection, tree on the map.',
+              '(evaluation) First metrics on a small test set.',
+            ],
+          },
+        ],
+      },
+      {
+        label: '10 – 12/10: buffer, fixes',
+        items: [],
+      },
+    ],
+  },
+  {
+    id: 'ms3',
+    milestone: 'MS3 – Legal Requirements, Technical Risks & Business Plan',
+    date: '03–10/11',
+    status: 'upcoming',
+    weeks: [
+      {
+        label: '12 – 18/10',
+        items: [
+          {
+            category: 'Documentation',
+            points: [
+              'GDPR: personal data collected and why, anonymization, right to be forgotten, encryption and access control.',
+              'Licensing: licences of all third-party and open-source dependencies, conflicts.',
+            ],
+          },
+          {
+            category: 'Development',
+            points: [
+              '(API) Authentication (JWT) and roles (admin, validator, viewer).',
+              '(geospatial DB) Users, roles, migrations.',
+              '(frontend) Login and role-based navigation.',
+              '(nginx) HTTPS and rate limiting.',
+            ],
+          },
+          {
+            category: 'Model',
+            points: [
+              '(privacy) Automatic blurring of faces and licence plates.',
+              '(data) Ingestion of street-level images for the pilot area.',
+            ],
+          },
+        ],
+      },
+      {
+        label: '19 – 25/10',
+        items: [
+          {
+            category: 'Documentation',
+            points: [
+              'Sector regulation: Law 59/2021 and municipal tree rules.',
+              'Technical risks: external dependencies and alternatives, technical debt, brittle components.',
+            ],
+          },
+          {
+            category: 'Development',
+            points: [
+              '(pipeline) Abstraction over the image source.',
+              '(queue) Retries and failed-jobs queue.',
+              '(API) Input validation.',
+              '(frontend) Job progress.',
+              '(object storage) Raw and blurred images kept separate.',
+            ],
+          },
+          {
+            category: 'Model',
+            points: [
+              '(training) More data, compared with the pre-trained baseline.',
+              '(evaluation) Metrics on a validation set.',
+              '(data) Start the manual reference survey in a few streets.',
+            ],
+          },
+        ],
+      },
+      {
+        label: '26 – 30/10',
+        items: [
+          {
+            category: 'Documentation',
+            points: [
+              'Business plan: SWOT, TOWS matrix (SO, ST, WO, WT), PESTEL.',
+              'Terms and conditions: conditions of use, liability disclaimers, jurisdiction.',
+            ],
+          },
+          {
+            category: 'Development',
+            points: [
+              '(frontend) Tree detail: source image, coordinates, confidence.',
+              '(API) Tree detail and list by zone.',
+              '(geospatial DB) Spatial indexes.',
+              'Base tests for critical components.',
+            ],
+          },
+          {
+            category: 'Model',
+            points: [
+              '(geolocation) First version of the position estimate.',
+              '(deduplication) Approach defined, partial implementation.',
+            ],
+          },
+        ],
+      },
+      {
+        label: '31/10 – 02/11: buffer, fixes',
+        items: [],
+      },
+    ],
+  },
+  {
+    id: 'ms4',
+    milestone: 'MS4 – System Component Validation',
+    date: '15–16/12',
+    status: 'upcoming',
+    weeks: [
+      {
+        label: '02 – 08/11',
+        items: [
+          {
+            category: 'Documentation',
+            points: [
+              'Define scenarios and targets for each MS4 topic. Revisit MS3 topics that overlap.',
+            ],
+          },
+          {
+            category: 'Development',
+            points: [
+              '(infra) Production-like environment.',
+              '(pipeline) Deduplication v1: cluster nearby detections.',
+              '(geospatial DB) One tree linked to many source images, embeddings stored.',
+              '(API) Tree–image association.',
+            ],
+          },
+          {
+            category: 'Model',
+            points: [
+              '(geolocation) Triangulation between views v1.',
+              '(evaluation) Localization error (MAE, RMSE) against reference points.',
+              '(deduplication) Visual embeddings as tie-breaker.',
+            ],
+          },
+        ],
+      },
+      {
+        label: '09 – 15/11',
+        items: [
+          {
+            category: 'Documentation',
+            points: [
+              'Start collecting project management numbers (tasks per sprint, CI failures, PRs).',
+            ],
+          },
+          {
+            category: 'Development',
+            points: [
+              '(frontend) Basic manual correction (accept, reject, move).',
+              '(API) Store corrections.',
+              '(NoSQL DB) Correction history.',
+              '(infra) CI with automated tests and image builds.',
+            ],
+          },
+          {
+            category: 'Model',
+            points: [
+              '(data) More annotations on hard cases (shadow, occlusion, night).',
+              '(training) New version with K-Fold cross-validation.',
+            ],
+          },
+        ],
+      },
+      {
+        label: '16 – 22/11',
+        items: [
+          {
+            category: 'Documentation',
+            points: ['Start the slides.'],
+          },
+          {
+            category: 'Development',
+            points: [
+              '(pipeline) Full flow: ingestion, blurring, detection, localization, deduplication, registration.',
+              '(frontend) Map with trees, detail and correction.',
+              '(infra) Integration tests of the full flow.',
+            ],
+          },
+          {
+            category: 'Model',
+            points: [
+              '(evaluation) Pilot area results: confusion matrix, precision, recall, F1.',
+              '(evaluation) Localization error against the reference.',
+              '(training) Freeze the model version.',
+            ],
+          },
+        ],
+      },
+      {
+        label: '23 – 29/11',
+        items: [
+          {
+            category: 'Documentation',
+            points: [
+              'Performance: response time, throughput, slow queries, indexes, caching.',
+              'Scalability: stress test until failure, what broke, vertical vs horizontal scaling.',
+            ],
+          },
+          {
+            category: 'Development',
+            points: [
+              '(API) p95 and requests per second per endpoint.',
+              '(geospatial DB) Slow queries, indexes, N+1.',
+              '(queue) Stress test until failure.',
+              '(pipeline) More workers (horizontal) and more resources (vertical).',
+            ],
+          },
+          {
+            category: 'Model',
+            points: [
+              '(pipeline) Images processed per minute per worker.',
+              '(evaluation) Find the bottleneck (model, I/O, database).',
+            ],
+          },
+        ],
+      },
+      {
+        label: '30/11 – 06/12',
+        items: [
+          {
+            category: 'Documentation',
+            points: [
+              'Security: JWT/session safety, broken access control, password hashing (Argon2, bcrypt), OWASP Top 10, dependency audit (CVEs).',
+              'AI model validation: metrics, K-Fold results, boundary testing, error analysis.',
+            ],
+          },
+          {
+            category: 'Development',
+            points: [
+              '(API) JWT/session security, normal user vs admin access, password hashing.',
+              '(API + frontend) Input sanitization, OWASP Top 10 checks.',
+              '(infra) Dependency audit (CVEs).',
+            ],
+          },
+          {
+            category: 'Model',
+            points: [
+              '(evaluation) False positives and negatives, classes most confused.',
+              '(evaluation) Manual inspection of wrong predictions.',
+              '(evaluation) Boundary testing: dark, blurred, occluded, rainy images.',
+            ],
+          },
+        ],
+      },
+      {
+        label: '07 – 11/12',
+        items: [
+          {
+            category: 'Documentation',
+            points: [
+              'Final slides.',
+              'Software project management: agile planning, CI/CD, PRs.',
+            ],
+          },
+          {
+            category: 'Development',
+            points: ['Bug fixes and technical documentation only.'],
+          },
+          {
+            category: 'Model',
+            points: ['Bug fixes, record model versions and results.'],
+          },
+        ],
+      },
+      {
+        label: '12 – 14/12: buffer, fixes, rehearsal',
+        items: [],
+      },
+    ],
+  },
+  {
+    id: 'sem2',
+    milestone: 'Second Semester – Construction & Transition',
+    date: 'January – end of May',
+    status: 'future',
+    weeks: [
+      {
+        label: 'Learning Loop',
+        items: [
+          {
+            category: 'Goal',
+            points: [
+              'Full correction flow: confirm, reject, move, merge, split, add a missed tree.',
+              'Correction endpoints with history and reviewer identity.',
+              'Corrections with context (image crop, model version, confidence) as candidate training data.',
+              'Retraining requests and new model versions announced to workers.',
+              'Versioned datasets and model files.',
+              'Build a dataset from corrections, retrain, compare with previous version, promote only if better.',
+            ],
+          },
+        ],
+      },
+      {
+        label: 'Tree Characterization',
+        items: [
+          {
+            category: 'Goal',
+            points: [
+              '(model) Species or genus, size, visible signs of poor condition.',
+              '(data) New annotations and class balance.',
+              '(geospatial DB) Attributes on tree records, with confidence.',
+              '(frontend) Show, edit and filter by attributes.',
+              '(evaluation) Error analysis per class.',
+            ],
+          },
+        ],
+      },
+      {
+        label: 'Video Ingestion',
+        items: [
+          {
+            category: 'Goal',
+            points: [
+              '(pipeline) GPS-tagged video: frame sampling, GPS synchronization, moving-camera handling.',
+              '(frontend + nginx + object storage) Large uploads with progress.',
+              '(geolocation) Better position estimates using several views.',
+            ],
+          },
+        ],
+      },
+      {
+        label: 'Management & Analytics',
+        items: [
+          {
+            category: 'Goal',
+            points: [
+              '(geospatial DB) Statistics per street or parish.',
+              '(pipeline + geospatial DB) Comparison between surveys: new and removed trees.',
+              '(frontend) Dashboards, filters, map layers.',
+              '(API) Inventory export (GeoJSON, CSV).',
+            ],
+          },
+        ],
+      },
+      {
+        label: 'Final Validation & Delivery',
+        items: [
+          {
+            category: 'Goal',
+            points: [
+              'Compare automatic inventory with complete manual survey: precision, recall, localization error.',
+              'Error analysis by street type, lighting and season.',
+              'Final report, user and admin documentation, deployment guide.',
+              'Final presentation and demo.',
+              'Final check of licences and dependencies.',
+            ],
+          },
+        ],
+      },
+    ],
+  },
+];
+
+const categoryColor: Record<string, string> = {
+  Documentation: '#5F7C4C',
+  Development:   '#9CB66E',
+  Model:         '#CB8F30',
+  Goal:          '#5F7C4C',
 };
 ---
- 
+
 <Layout metadata={metadata}>
-  <section class="max-w-4xl mx-auto px-4 sm:px-6 py-20 md:py-28 text-center">
-    <h1 class="text-3xl md:text-4xl font-bold">Calendar</h1>
-    <p class="text-muted dark:text-gray-400 mt-4">This page is coming soon.</p>
+  <HeroText title="<span style='color:#623B14'>Calendar</span>" />
+
+  <section class="max-w-5xl mx-auto px-4 sm:px-6 pb-24 not-prose">
+    <div class="flex flex-col gap-6">
+      {phases.map((phase) => (
+        <details class="group rounded-2xl border border-gray-100 bg-white shadow-sm overflow-hidden" open={phase.status === 'done'}>
+          <!-- Phase header -->
+          <summary class="flex items-center justify-between gap-4 px-6 py-5 cursor-pointer list-none select-none">
+            <div class="flex items-center gap-3 flex-wrap">
+              <h2 class="text-xl font-bold text-[#623B14] font-heading">{phase.milestone}</h2>
+            </div>
+            <div class="flex items-center gap-3 shrink-0">
+              <span class="hidden sm:flex items-center gap-1.5 text-sm text-muted">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                {phase.date}
+              </span>
+              <!-- Chevron -->
+              <svg class="w-5 h-5 text-muted transition-transform duration-200 group-open:rotate-180" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/>
+              </svg>
+            </div>
+          </summary>
+
+          <!-- Phase body -->
+          <div class="px-6 pb-6 pt-2 border-t border-gray-100">
+            {phase.id === 'sem2' ? (
+              <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-4">
+                {phase.weeks.map((week) => (
+                  <div class="rounded-xl border border-gray-100 p-4 bg-gray-50/50">
+                    <div class="flex items-center gap-2 mb-3">
+                      <span class="text-sm font-semibold text-[#4B2F13]">{week.label}</span>
+                    </div>
+                    {week.items.map((item) => (
+                      <ul class="space-y-1.5">
+                        {item.points.map((pt) => (
+                          <li class="flex items-start gap-2 text-sm text-muted leading-snug">
+                            <span class="mt-1.5 w-1 h-1 rounded-full flex-shrink-0 bg-[#5F7C4C]" />
+                            {pt}
+                          </li>
+                        ))}
+                      </ul>
+                    ))}
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <div class="flex flex-col gap-6 mt-4">
+                {phase.weeks.map((week) => (
+                  <div>
+                    <div class="flex items-center gap-2 mb-3">
+                      <span class="text-sm font-semibold text-[#4B2F13] bg-[#623B14]/5 px-3 py-1 rounded-full">{week.label}</span>
+                    </div>
+                    {week.items.length > 0 && (
+                      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        {week.items.map((item) => (
+                          <div class="rounded-xl border border-gray-100 p-4 bg-gray-50/50">
+                            <div class="flex items-center gap-2 mb-3">
+                              <span
+                                class="w-2 h-2 rounded-full flex-shrink-0"
+                                style={`background-color: ${categoryColor[item.category] ?? '#623B14'}`}
+                              />
+                              <span
+                                class="text-xs font-bold uppercase tracking-wide"
+                                style={`color: ${categoryColor[item.category] ?? '#623B14'}`}
+                              >
+                                {item.category}
+                              </span>
+                            </div>
+                            <ul class="space-y-1.5">
+                              {item.points.map((pt) => (
+                                <li class="flex items-start gap-2 text-sm text-muted leading-snug">
+                                  <span class="mt-1.5 w-1 h-1 rounded-full flex-shrink-0" style={`background-color: ${categoryColor[item.category] ?? '#623B14'}`} />
+                                  {pt}
+                                </li>
+                              ))}
+                            </ul>
+                          </div>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+        </details>
+      ))}
+    </div>
   </section>
 </Layout>
