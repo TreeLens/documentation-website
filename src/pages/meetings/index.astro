@@ -16,7 +16,7 @@ meetings.sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
   <HeroText title="<span style='color:#623B14'>Meetings</span>" />
 
   <section class="max-w-6xl mx-auto px-4 sm:px-6 pt-8 pb-20">
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
       {meetings.map((meeting) => (
         <a href={getPermalink(`/meetings/${meeting.id}`)} class="hover:shadow-[#CB8F30] shadow-sm bg-white p-6 py-8 rounded-2xl transition-all duration-300 border border-gray-100">
           <h2 class="text-2xl font-semibold text-center text-[#623B14]">{meeting.data.title}</h2>

@@ -484,9 +484,9 @@ const categoryColor: Record<string, string> = {
       {phases.map((phase) => (
         <details class="group rounded-2xl border border-gray-100 bg-white shadow-sm overflow-hidden" open={phase.status === 'done'}>
           <!-- Phase header -->
-          <summary class="flex items-center justify-between gap-4 px-6 py-5 cursor-pointer list-none select-none">
+          <summary class="flex items-center justify-between gap-4 px-4 sm:px-6 py-5 cursor-pointer list-none select-none">
             <div class="flex items-center gap-3 flex-wrap">
-              <h2 class="text-xl font-bold text-[#623B14] font-heading">{phase.milestone}</h2>
+              <h2 class="text-base sm:text-xl font-bold text-[#623B14] font-heading">{phase.milestone}</h2>
             </div>
             <div class="flex items-center gap-3 shrink-0">
               <span class="hidden sm:flex items-center gap-1.5 text-sm text-muted">
@@ -501,7 +501,7 @@ const categoryColor: Record<string, string> = {
           </summary>
 
           <!-- Phase body -->
-          <div class="px-6 pb-6 pt-2 border-t border-gray-100">
+          <div class="px-4 sm:px-6 pb-6 pt-2 border-t border-gray-100">
             {phase.id === 'sem2' ? (
               <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-4">
                 {phase.weeks.map((week) => (

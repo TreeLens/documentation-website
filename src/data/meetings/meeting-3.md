@@ -17,9 +17,9 @@ date: 2026-09-28
 
 ## 1. 🎯 Meeting Objective
 - Review the inception phase
-- Organize the M1 presentation slides
+- Organize the MS1 presentation slides
 
 ---
 
 ## 2. 💬 Discussion and Decisions
-- Discussion regarding the presentation slides; selecting the information to include so that the presentation is engaging, captures attention, and introduces the product.
+- Discussion regarding the presentation slides, selecting the information to include so that the presentation is engaging, captures attention, and introduces the product.

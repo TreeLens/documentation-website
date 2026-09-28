@@ -21,7 +21,7 @@ const { links = [] } = Astro.props;
 <footer class="relative border-t border-gray-200 dark:border-slate-800 not-prose">
   <div class="relative max-w-7xl mx-auto px-4 sm:px-6 py-10 md:py-14">
     <div class="flex flex-wrap items-center justify-between gap-x-12 gap-y-10">
-      <div class="flex flex-wrap gap-x-32 gap-y-8">
+      <div class="flex flex-wrap gap-x-8 sm:gap-x-16 md:gap-x-32 gap-y-8">
         {
           links.map(({ title, links }) => (
             <div>
@@ -45,7 +45,7 @@ const { links = [] } = Astro.props;
         }
       </div>
 
-      <div class="w-full md:w-1/4 flex justify-end">
+      <div class="w-full md:w-1/4 flex justify-center md:justify-end">
         <div class="w-48 md:w-56 lg:w-64 h-auto">
           <img src={LogoIcon.src || "/placeholder.svg"} alt="TreeLens Logo" />
         </div>

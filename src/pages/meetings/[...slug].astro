@@ -21,12 +21,12 @@ const metadata = { title: meeting.data.title };
 ---
 
 <Layout metadata={metadata}>
-  <section class="max-w-4xl mx-auto mt-8 p-6 bg-white rounded-2xl">
+  <section class="max-w-4xl mx-auto mt-8 p-4 sm:p-6 bg-white rounded-2xl">
     <HeroText title={`<span style='color:#623B14'>${meeting.data.title}</span>`} />
-    <div class="mx-auto px-6 max-w-3xl prose prose-md lg:prose-xl dark:prose-invert mt-8 prose-li:my-0.5 prose-ul:my-1 prose-p:my-2 prose-headings:mt-6 prose-headings:mb-2 prose-headings:text-[#623B14] prose-p:text-muted prose-li:text-muted prose-strong:text-[#623B14]">
+    <div class="mx-auto px-4 sm:px-6 max-w-3xl prose prose-md lg:prose-xl dark:prose-invert mt-8 prose-li:my-0.5 prose-ul:my-1 prose-p:my-2 prose-headings:mt-6 prose-headings:mb-2 prose-headings:text-[#623B14] prose-p:text-muted prose-li:text-muted prose-strong:text-[#623B14]">
       <Content />
     </div>
-    <div class="mx-auto px-6 max-w-3xl mt-12 pb-4">
+    <div class="mx-auto px-4 sm:px-6 max-w-3xl mt-12 pb-4">
       <a
         href={getPermalink('/meetings')}
         class="inline-flex items-center gap-2 text-[#623B14] font-medium text-base hover:opacity-75 transition-opacity duration-200"
