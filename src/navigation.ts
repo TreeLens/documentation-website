@@ -15,7 +15,7 @@ export const footerData = {
       title: 'Resources',
       links: [
         { text: 'GitHub', href: 'https://github.com/TreeLens' },
-        { text: 'Google Drive', href: 'https://drive.google.com' },
+        { text: 'Google Drive', href: 'https://drive.google.com/drive/folders/127bfZiaMYE9meKNJTYKlAWB5v5_4s4gB?usp=drive_link' },
         { text: 'Jira', href: 'https://treelens-pei.atlassian.net/jira/software/projects/KAN/boards/2?filter=&groupBy=none' },
       ],
     },
