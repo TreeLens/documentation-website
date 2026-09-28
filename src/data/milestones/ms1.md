@@ -20,7 +20,7 @@ Automating the process presents its own set of challenges:
 
 The central question is how to obtain a georeferenced, duplicate-free, and updatable inventory at a cost significantly lower than that of a manual survey, without compromising confidence in data quality.
 
-## Goals
+## 3. Goals
 The overall objective is to reduce the effort involved in creating and maintaining the urban tree inventory, while upholding a level of quality that technicians can validate. Specifically, the project aims to:
 - detect trees in street-level images and video and estimate their geographic position;
 - build and maintain a georeferenced inventory, without duplicating the same tree seen in multiple images;
@@ -31,22 +31,33 @@ As extensions, the project aims to characterize each tree (species or genus, siz
 
 During the first half of the year, the focus is on defining the architecture, getting the core pipeline operational, and validating the system in terms of performance, scalability, security, and model quality.
 
-## Tasks important for comprehensive development
-- Analysis pipeline: image collection from an area and video processing involving GPS, face and license plate blurring, tree detection, position estimation via triangulation between views, and fusion of repeated detections.
-- Web application: interactive map, zone selection, video upload, tree records with source images, and manual validation and correction.
-- Data and infrastructure: message queue for asynchronous processing, geospatial database for the inventory, NoSQL database for job status, object storage for images and videos, reverse proxy, and continuous integration.
-- Model and data: image annotation, training, evaluation, and error analysis.
-- Management and documentation: schedule, communication plan, requirements, legal and risk analysis, and presentation preparation.
+## 4. Important tasks for comprehensive development
+- **Analysis pipeline:** image collection from an area and video processing involving GPS, face and license plate blurring, tree detection, position estimation via triangulation between views, and fusion of repeated detections.
+- **Web application:** interactive map, zone selection, video upload, tree records with source images, and manual validation and correction.
+- **Data and infrastructure:** message queue for asynchronous processing, geospatial database for the inventory, NoSQL database for job status, object storage for images and videos, reverse proxy, and continuous integration.
+- **Model and data:** image annotation, training, evaluation, and error analysis.
+- **Management and documentation:** schedule, communication, use cases, requirements, legal and risk analysis, and presentation preparation.
 
-## Expected results
+## 5. Expected results
 By the end of the first half of the year, we expect to have:
 - the architecture and requirements documented;
 - a functional end-to-end pipeline, from image upload to the tree appearing on the map;
 - a detection model trained on annotated data from the pilot zone, including metrics and error analysis;
 - a system validated for performance, scalability, and security.
 
-By the end of the project, we expect to have a georeferenced inventory compared against a manual survey and a demonstration of the correction and retraining cycle. The expected value lies in reduced survey time, more frequent updates, and a database that is easier to share and compare. Quantitative targets will be defined with the supervisors based on the initial results.
+By the end of the project, we expect to have a georeferenced inventory compared against a manual survey and a demonstration of the correction and retraining cycle. The expected value lies in reduced survey time, more frequent updates, and a database that is easier to share and compare.
 
-## Related Work
+## 6. Related Work
+- **Current practice:** Tree inventorying is still largely manual: paper forms or Excel, later imported into systems like i-Tree Eco and Streets, which analyze and value trees but don't survey them. To cut costs, these tools often recommend sampling only a few street segments, yielding ~10% standard error in total tree counts an implicit admission that full inventories are expensive. The resulting data is poorly georeferenced and hard to update or compare over time.
 
+- **Collaborative data collection tools:** Collaborative tools like OpenTreeMap (municipal inventories) and iNaturalist (tree identification and mapping) improve record-keeping and participation, but still depend on people visiting each tree.
 
+The field is split in two: municipalities rely on paper, Excel, and i-Tree costly, infrequent surveys analyzed only after collection while research shows trees can be detected and located from street-level imagery, yet these methods stay confined to research pipelines instead of becoming everyday municipal tools.
+
+## 7. High-Level Architecture
+It is important to mention that this architecture is being designed prior to the start of project development, therefore, it is highly subject to modification to ensure the project's proper functioning.
+
+![Architecture](../../assets/images/ms1/high-level-architecture.png)
+
+#### Model's Retraining Process
+![ReTraining](../../assets/images/ms1/retraining.png)
