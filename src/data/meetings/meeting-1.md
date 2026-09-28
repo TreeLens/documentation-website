@@ -38,7 +38,8 @@ date: 2026-09-23
 - We are indeed responsible for seeking out other methods similar to the solution we intend to implement even if they are merely standalone services in order to gather as many examples as possible to demonstrate the importance of our system.
 
 ### *Topic 4:* **BrainStorming on Architecture**
-- The usage of technologies like PostGis e rustfs was mentioned for our specific use cases, and regarding the language python was recomended since the project consists of a lot of Machine Learning.
+- The usage of technologies like PostGis e rustfs was mentioned for our specific use cases, and regarding the language python was recommended since the project consists of a lot of Machine Learning.
+- For auth keycloack was also recommended.
 
 ### *Topic 5:* **Data Sources to use**
 - The mentioned data sources consisted of street view images and images/videos taken on site.
