@@ -1,0 +1,138 @@
+---
+interface Props {
+  src: string;        // path to PDF in /public, e.g. "/documentation-website/presentations/ms1.pdf"
+  title?: string;
+}
+const { src, title = 'Presentation' } = Astro.props;
+const uid = `pv-${Math.random().toString(36).slice(2, 8)}`;
+---
+
+<div id={uid} class="pv-root not-prose w-full rounded-2xl overflow-hidden shadow-lg border border-gray-100 bg-[#1a1a1a]">
+  <!-- Toolbar -->
+  <div class="pv-toolbar flex items-center justify-between px-4 py-2 bg-[#2a2a2a] select-none">
+    <div class="flex items-center gap-3">
+      <button class="pv-prev pv-btn" aria-label="Previous slide">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/>
+        </svg>
+      </button>
+      <span class="pv-counter text-sm text-gray-300 tabular-nums min-w-[4rem] text-center">— / —</span>
+      <button class="pv-next pv-btn" aria-label="Next slide">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/>
+        </svg>
+      </button>
+    </div>
+    <span class="text-xs text-gray-500 hidden sm:block">{title}</span>
+    <button class="pv-fs pv-btn" aria-label="Fullscreen">
+      <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4"/>
+      </svg>
+    </button>
+  </div>
+
+  <!-- Canvas area -->
+  <div class="pv-stage relative w-full bg-[#1a1a1a]" style="aspect-ratio:16/9;">
+    <canvas class="pv-canvas absolute inset-0 w-full h-full"></canvas>
+    <div class="pv-loader absolute inset-0 flex items-center justify-center">
+      <div class="w-8 h-8 border-2 border-[#CB8F30] border-t-transparent rounded-full animate-spin"></div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .pv-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #d1d5db;
+    padding: 0.25rem;
+    border-radius: 0.375rem;
+    transition: background 0.15s, color 0.15s;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+  }
+  .pv-btn:hover { background: #3a3a3a; color: #fff; }
+  .pv-btn:disabled { opacity: 0.3; cursor: default; }
+</style>
+
+<script define:vars={{ uid, src }}>
+  (async () => {
+    const root    = document.getElementById(uid);
+    const canvas  = root.querySelector('.pv-canvas');
+    const loader  = root.querySelector('.pv-loader');
+    const counter = root.querySelector('.pv-counter');
+    const btnPrev = root.querySelector('.pv-prev');
+    const btnNext = root.querySelector('.pv-next');
+    const btnFs   = root.querySelector('.pv-fs');
+    const stage   = root.querySelector('.pv-stage');
+
+    // Load PDF.js from CDN (lightweight, no install needed)
+    if (!window.pdfjsLib) {
+      await new Promise((resolve, reject) => {
+        const s = document.createElement('script');
+        s.src = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js';
+        s.onload = resolve;
+        s.onerror = reject;
+        document.head.appendChild(s);
+      });
+      window.pdfjsLib.GlobalWorkerOptions.workerSrc =
+        'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+    }
+
+    const pdf = await window.pdfjsLib.getDocument(src).promise;
+    const total = pdf.numPages;
+    let current = 1;
+
+    loader.style.display = 'none';
+
+    async function render(pageNum) {
+      const page     = await pdf.getPage(pageNum);
+      const viewport = page.getViewport({ scale: 1 });
+
+      // Scale to fill the canvas width
+      const container = canvas.parentElement;
+      const scale     = container.clientWidth / viewport.width;
+      const scaled    = page.getViewport({ scale });
+
+      canvas.width  = scaled.width;
+      canvas.height = scaled.height;
+
+      const ctx = canvas.getContext('2d');
+      await page.render({ canvasContext: ctx, viewport: scaled }).promise;
+
+      counter.textContent = `${pageNum} / ${total}`;
+      btnPrev.disabled = pageNum <= 1;
+      btnNext.disabled = pageNum >= total;
+    }
+
+    await render(current);
+
+    btnPrev.addEventListener('click', () => { if (current > 1)     render(--current); });
+    btnNext.addEventListener('click', () => { if (current < total) render(++current); });
+
+    // Keyboard navigation (only when viewer is focused/hovered)
+    root.setAttribute('tabindex', '0');
+    root.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight' || e.key === 'ArrowDown')  { e.preventDefault(); if (current < total) render(++current); }
+      if (e.key === 'ArrowLeft'  || e.key === 'ArrowUp')    { e.preventDefault(); if (current > 1)     render(--current); }
+    });
+
+    // Fullscreen
+    btnFs.addEventListener('click', () => {
+      if (!document.fullscreenElement) {
+        stage.requestFullscreen?.();
+      } else {
+        document.exitFullscreen?.();
+      }
+    });
+
+    // Re-render on resize
+    let resizeTimer;
+    window.addEventListener('resize', () => {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(() => render(current), 150);
+    });
+  })();
+</script>
