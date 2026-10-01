@@ -49,8 +49,3 @@ date: 2026-09-27
 - Please note that the calendar is completely subject to change according to the progress of development.
 - The schedule was created with gaps on certain days precisely to account for the possibility of delays, which are bound to happen.
 - Discord Channel, Jira Backlog, Project is hosted on GitHub Organization: TreeLens.
-
----
-
-## 4. 📝 Observations and Comments
-- Alignment on what will be done in M2 - Elaboration Phase.
