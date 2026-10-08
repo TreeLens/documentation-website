@@ -1,6 +1,22 @@
 ---
 import { Image } from 'astro:assets';
 import landingImage from '~/assets/images/landing-page.png';
+import { getPermalink } from '~/utils/permalinks';
+import { milestones } from '~/data/milestones';
+
+import zorlak  from '~/assets/images/team/zorlak.jpeg';
+import delRey  from '~/assets/images/team/del-rey.jpeg';
+import kesha   from '~/assets/images/team/kesha.jpeg';
+import bora    from '~/assets/images/team/bora.jpeg';
+import peri    from '~/assets/images/team/peri.jpeg';
+
+const team = [
+  { photo: zorlak,  name: 'Francisco Baptista', github: 'https://github.com/kikopb31' },
+  { photo: delRey,  name: 'Inês Batista',        github: 'https://github.com/InesLBatista' },
+  { photo: kesha,   name: 'Marcos Costa',        github: 'https://github.com/MarcosCost' },
+  { photo: bora,    name: 'Maria Quinteiro',     github: 'https://github.com/Maria0claraa' },
+  { photo: peri,    name: 'Luís Correia',        github: 'https://github.com/LuisPCNeri' },
+];
 ---
 
 <section class="relative md:-mt-[76px] not-prose">
@@ -44,8 +60,8 @@ import landingImage from '~/assets/images/landing-page.png';
   </div>
 </section>
 
-<!-- SECÇÃO: Say Goodbye to Field Surveys -->
-<section id="features" class="py-20 md:py-28 not-prose">
+<!-- SECÇÃO: Say Goodbye to Field Surveys (com margem superior para descer mais um pouco) -->
+<section id="features" class="mt-8 sm:mt-12 py-12 md:py-20 not-prose">
   <div class="max-w-7xl mx-auto px-4 sm:px-6">
 
     <h2 class="text-2xl sm:text-3xl md:text-5xl lg:text-6xl font-bold text-center font-heading mb-8 md:mb-16 text-[#623B14] dark:text-[#e8c99a]">
@@ -118,3 +134,80 @@ import landingImage from '~/assets/images/landing-page.png';
   </div>
 </section>
 
+<section class="py-6 sm:py-10 not-prose">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6">
+
+    <h3 class="text-xl sm:text-2xl font-semibold text-left font-heading mb-3 sm:mb-4 text-[#623B14] dark:text-[#e8c99a]">
+      Development Team
+    </h3>
+
+    <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4 md:gap-6">
+      {team.map((member) => (
+        <a
+          href={member.github}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="relative w-full rounded-2xl overflow-hidden shadow-lg block transition-transform duration-300 hover:-translate-y-2 hover:scale-[1.02]"
+        >
+          <Image
+            src={member.photo}
+            alt={member.name}
+            class="w-full h-48 sm:h-56 md:h-64 object-cover block"
+            width={480}
+            height={640}
+            quality={90}
+          />
+          <div class="absolute bottom-3 left-1/2 -translate-x-1/2 w-[85%]">
+            <span class="block text-center text-xs sm:text-sm font-semibold text-white bg-[#623B14]/80 backdrop-blur-sm px-2 py-1.5 rounded-xl whitespace-nowrap overflow-hidden text-ellipsis">
+              {member.name}
+            </span>
+          </div>
+        </a>
+      ))}
+    </div>
+
+  </div>
+</section>
+
+<section class="py-6 sm:py-10 not-prose">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6">
+
+    <h3 class="text-xl sm:text-2xl font-semibold text-left font-heading mb-3 sm:mb-4 text-[#623B14] dark:text-[#e8c99a]">
+      Milestones
+    </h3>
+
+    <!-- Imagens em grid com altura aumentada e alinhamento corrigido -->
+    <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 md:gap-6">
+      {milestones.map((ms) => (
+        <a
+          href={getPermalink(`/milestones/${ms.id}`)}
+          class="relative w-full rounded-2xl overflow-hidden shadow-lg block transition-transform duration-300 hover:-translate-y-2 hover:scale-[1.02]"
+        >
+          <img
+            src={ms.image.src}
+            alt={ms.title}
+            width={ms.image.width}
+            height={ms.image.height}
+            class="w-full h-48 sm:h-56 md:h-64 object-cover block"
+            loading="lazy"
+          />
+        </a>
+      ))}
+    </div>
+
+    <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 md:gap-6 mt-4">
+      {milestones.map((ms) => (
+        <div class="flex flex-col gap-1.5">
+          <div class="flex items-center gap-1.5 text-base text-muted dark:text-gray-400">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            <span>{ms.date}</span>
+          </div>
+          <p class="text-base text-muted dark:text-gray-400 leading-relaxed">{ms.description}</p>
+        </div>
+      ))}
+    </div>
+
+  </div>
+</section>
