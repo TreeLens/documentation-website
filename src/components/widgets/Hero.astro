@@ -176,36 +176,38 @@ const team = [
       Milestones
     </h3>
 
-    <!-- Imagens em grid com altura aumentada e alinhamento corrigido -->
-    <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 md:gap-6">
+    <!-- Imagens + descrição juntas por item -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
       {milestones.map((ms) => (
         <a
           href={getPermalink(`/milestones/${ms.id}`)}
-          class="relative w-full rounded-2xl overflow-hidden shadow-lg block transition-transform duration-300 hover:-translate-y-2 hover:scale-[1.02]"
+          class="flex flex-col gap-3 group"
         >
-          <img
-            src={ms.image.src}
-            alt={ms.title}
-            width={ms.image.width}
-            height={ms.image.height}
-            class="w-full h-48 sm:h-56 md:h-64 object-cover block"
-            loading="lazy"
-          />
-        </a>
-      ))}
-    </div>
-
-    <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 md:gap-6 mt-4">
-      {milestones.map((ms) => (
-        <div class="flex flex-col gap-1.5">
-          <div class="flex items-center gap-1.5 text-base text-muted dark:text-gray-400">
-            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-            </svg>
-            <span>{ms.date}</span>
+          <div class="relative w-full rounded-2xl overflow-hidden shadow-lg transition-transform duration-300 hover:-translate-y-2 hover:scale-[1.02]">
+            <img
+              src={ms.image.src}
+              alt={ms.title}
+              width={ms.image.width}
+              height={ms.image.height}
+              style="display:block; width:100%; height:auto;"
+              loading="lazy"
+            />
+            <div class="absolute bottom-3 left-1/2 -translate-x-1/2 w-[85%]">
+              <span class="block text-center text-xs sm:text-sm font-semibold text-white bg-[#623B14]/80 backdrop-blur-sm px-2 py-1.5 rounded-xl whitespace-nowrap overflow-hidden text-ellipsis">
+                {ms.title}
+              </span>
+            </div>
           </div>
-          <p class="text-base text-muted dark:text-gray-400 leading-relaxed">{ms.description}</p>
-        </div>
+          <div class="flex flex-col gap-1.5 px-1">
+            <div class="flex items-center gap-1.5 text-muted text-sm">
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+              <span>{ms.date}</span>
+            </div>
+            <p class="text-sm text-muted leading-relaxed">{ms.description}</p>
+          </div>
+        </a>
       ))}
     </div>
 
