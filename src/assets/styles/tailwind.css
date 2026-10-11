@@ -93,12 +93,19 @@ html {
 }
 
 #header.expanded nav {
+  display: flex !important;
   position: fixed;
   top: 70px;
   left: 0;
   right: 0;
-  bottom: 70px !important;
-  padding: 0 5px;
+  bottom: auto;
+  padding: 1rem;
+  background-color: var(--aw-color-bg-page);
+  border-bottom: 1px solid rgb(0 0 0 / 8%);
+  box-shadow: 0 4px 12px rgb(0 0 0 / 10%);
+  z-index: 39;
+  flex-direction: column;
+  gap: 0.25rem;
 }
 
 .dropdown:focus .dropdown-menu,

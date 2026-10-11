@@ -217,25 +217,41 @@ const persistKey = `header-${Array.from(
 </style>
 
 <script>
-  // Mobile menu toggle
+  // Mobile menu toggle — works with the CSS rules in tailwind.css:
+  // #header.expanded nav { position: fixed; top: 70px; ... }
   function initHeader() {
     const btn = document.querySelector('[data-aw-toggle-menu]') as HTMLElement | null;
     const header = document.getElementById('header');
-    const nav = header?.querySelector('nav');
+    if (!btn || !header) return;
 
-    if (!btn || !header || !nav) return;
+    function closeMenu() {
+      btn.setAttribute('aria-expanded', 'false');
+      btn.classList.remove('expanded');
+      header.classList.remove('expanded');
+    }
+
+    function openMenu() {
+      btn.setAttribute('aria-expanded', 'true');
+      btn.classList.add('expanded');
+      header.classList.add('expanded');
+    }
 
     btn.addEventListener('click', () => {
-      const expanded = btn.getAttribute('aria-expanded') === 'true';
-      btn.setAttribute('aria-expanded', String(!expanded));
-      btn.classList.toggle('expanded', !expanded);
-      header.classList.toggle('expanded', !expanded);
-      nav.classList.toggle('hidden', expanded);
-      nav.classList.toggle('flex', !expanded);
+      const isOpen = header.classList.contains('expanded');
+      isOpen ? closeMenu() : openMenu();
+    });
+
+    // Close when a nav link is clicked
+    header.querySelectorAll('nav a').forEach((link) => {
+      link.addEventListener('click', closeMenu);
+    });
+
+    // Close on outside click
+    document.addEventListener('click', (e) => {
+      if (!header.contains(e.target as Node)) closeMenu();
     });
   }
 
-  // Run on first load and after every view transition
   initHeader();
   document.addEventListener('astro:after-swap', initHeader);
 </script>
