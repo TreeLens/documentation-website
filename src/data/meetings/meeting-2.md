@@ -5,6 +5,8 @@ date: 2026-09-24
 ---
 📅 Date: 24-09-2026
 
+📍 Place: CUA
+
 👥 Participants
 - Francisco Baptista
 - Inês Batista
