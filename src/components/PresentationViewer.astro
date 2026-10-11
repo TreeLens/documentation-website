@@ -57,7 +57,7 @@ const uid = `pv-${Math.random().toString(36).slice(2, 8)}`;
   .pv-btn:disabled { opacity: 0.3; cursor: default; }
 </style>
 
-<script define:vars={{ uid, src }}>
+<script is:inline define:vars={{ uid, src }}>
   (async () => {
     const root    = document.getElementById(uid);
     const canvas  = root.querySelector('.pv-canvas');

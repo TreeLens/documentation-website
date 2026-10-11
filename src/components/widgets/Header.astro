@@ -222,35 +222,38 @@ const persistKey = `header-${Array.from(
     const header = document.getElementById('header');
     if (!btn || !header) return;
 
+    const safeBtn = btn;
+    const safeHeader = header;
+
     function closeMenu() {
-      btn.setAttribute('aria-expanded', 'false');
-      btn.classList.remove('expanded');
-      header.classList.remove('expanded');
+      safeBtn.setAttribute('aria-expanded', 'false');
+      safeBtn.classList.remove('expanded');
+      safeHeader.classList.remove('expanded');
     }
 
     function openMenu() {
-      btn.setAttribute('aria-expanded', 'true');
-      btn.classList.add('expanded');
-      header.classList.add('expanded');
+      safeBtn.setAttribute('aria-expanded', 'true');
+      safeBtn.classList.add('expanded');
+      safeHeader.classList.add('expanded');
     }
 
     // Remove old listeners by cloning the button
-    const newBtn = btn.cloneNode(true) as HTMLElement;
-    btn.parentNode?.replaceChild(newBtn, btn);
+    const newBtn = safeBtn.cloneNode(true) as HTMLElement;
+    safeBtn.parentNode?.replaceChild(newBtn, safeBtn);
 
     newBtn.addEventListener('click', () => {
-      const isOpen = header.classList.contains('expanded');
+      const isOpen = safeHeader.classList.contains('expanded');
       isOpen ? closeMenu() : openMenu();
     });
 
     // Close when any nav link is clicked
-    header.querySelectorAll('nav a').forEach((link) => {
+    safeHeader.querySelectorAll('nav a').forEach((link) => {
       link.addEventListener('click', closeMenu);
     });
 
     // Close on outside click
     document.addEventListener('click', (e) => {
-      if (!header.contains(e.target as Node)) closeMenu();
+      if (!safeHeader.contains(e.target as Node)) closeMenu();
     });
   }
 
