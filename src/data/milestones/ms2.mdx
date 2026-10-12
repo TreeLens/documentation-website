@@ -82,23 +82,28 @@ Tree enthusiast who uses the application primarily to identify species and explo
 ## 5. Use Cases
 - **UC01:** Search Inventory (Actors: Tree Enthusiast, Field Surveyor, Municipal Technician, Municipal Administrator)
 - **UC02:** View Tree Record (Actors: Tree Enthusiast, Field Surveyor, Municipal Technician, Municipal Administrator)
+![UseCases5](../../assets/images/ms2/5.png)
 - **UC03:** Submit Photo/Video with GPS (Actors: Tree Enthusiast, Field Surveyor)
 - **UC04:** Submit Within Assigned Task (Actor: Field Surveyor)
 - **UC05:** Check Status of Own Submissions (Actor: Tree Enthusiast)
 - **UC06:** View Assigned Zones/Tasks (Actor: Field Surveyor)
 - **UC07:** Track Task Progress (Actors: Field Surveyor, Municipal Administrator)
 - **UC08:** Mark Task as Complete (Actor: Field Surveyor)
+![UseCases4](../../assets/images/ms2/4.png)
 - **UC09:** Review Pending Submission Queue (Actor: Municipal Technician)
 - **UC10:** Approve or Reject Submission (Actor: Municipal Technician)
 - **UC11:** Correct Tree Attributes (Actor: Municipal Technician)
 - **UC12:** Manually Merge/Split Duplicate Detections (Actor: Municipal Technician)
-- **UC13:** Manage User Accounts and Permissions (Actor: Municipal Administrator)
-- **UC14:** Create and Organize Survey Zones (Actor: Municipal Administrator)
-- **UC15:** Assign Tasks to Field Surveyors (Actor: Municipal Administrator)
+![UseCases3](../../assets/images/ms2/3.png)
+- **UC13:** Create and Organize Survey Zones (Actor: Municipal Administrator)
+- **UC14:** Assign Tasks to Field Surveyors (Actor: Municipal Administrator)
+![UseCases2](../../assets/images/ms2/2.png)
+- **UC15:** Manage User Accounts and Permissions (Actor: Municipal Administrator)
 - **UC16:** View Platform Usage Overview (Actor: Municipal Administrator)
 - **UC17:** View Inventory Statistics and Analytics (Actor: Municipal Administrator)
 - **UC18:** Export Georeferenced Inventory (Actor: Municipal Administrator)
 - **UC19:** Compare Surveys (Actor: Municipal Administrator)
+![UseCases1](../../assets/images/ms2/1.png)
 
 ---
 
@@ -669,18 +674,6 @@ Scenario 01: Access to restricted pages
 - Given I am logged in as a specific role
 - When I try to open a page
 - Then access is granted or denied according to my role
-
-| Role | Page | Result |
-|---|---|---|
-| Tree Enthusiast | Validation queue | Denied |
-| Tree Enthusiast | Task list | Denied |
-| Field Surveyor | Validation queue | Denied |
-| Field Surveyor | Account management | Denied |
-| Municipal Technician | Account management | Denied |
-| Municipal Technician | Survey zone management | Denied |
-| Municipal Technician | Validation queue | Granted |
-| Municipal Administrator | Account management | Granted |
-| Municipal Administrator | Survey zone management | Granted |
 
 Scenario 02: Restricted data requested directly
 - Given I am logged in as a Field Surveyor
