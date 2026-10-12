@@ -35,7 +35,7 @@ const { links = [] } = Astro.props;
             <div>
               <div class="font-bold text-base mb-3 text-[#4B2F13]">{title}</div>
               {links && Array.isArray(links) && links.length > 0 && (
-                <ul class="text-sm space-y-2">
+                <ul class="text-lg space-y-2">
                   {links.map(({ text, href }) => (
                     <li>
                       <a
