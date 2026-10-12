@@ -17,38 +17,9 @@ import PresentationViewer from '~/components/PresentationViewer.astro';
 4. [Non-Functional Requirements](#4-non-functional-requirements)
 5. [Use Cases](#5-use-cases)
 6. [User Stories](#6-user-stories)
-   - [US01 — Tree species identification from a photo](#us01--tree-species-identification-from-a-photo)
-   - [US02 — Own submissions status](#us02--own-submissions-status)
-   - [US03 — Tree map search](#us03--tree-map-search)
-   - [US04 — Tree record](#us04--tree-record)
-   - [US05 — Assigned survey tasks](#us05--assigned-survey-tasks)
-   - [US06 — Submission within an assigned task](#us06--submission-within-an-assigned-task)
-   - [US07 — Tree detection from a video](#us07--tree-detection-from-a-video)
-   - [US08 — Task progress](#us08--task-progress)
-   - [US09 — Task completion](#us09--task-completion)
-   - [US10 — In-field tree confirmation](#us10--in-field-tree-confirmation)
-   - [US11 — In-field species correction](#us11--in-field-species-correction)
-   - [US12 — In-field observations](#us12--in-field-observations)
-   - [US13 — In-field rejection of a detection](#us13--in-field-rejection-of-a-detection)
-   - [US14 — Tree detection in a map zone](#us14--tree-detection-in-a-map-zone)
-   - [US15 — Check pending items queue](#us15--check-pending-items-queue)
-   - [US16 — Validation of pending items](#us16--validation-of-pending-items)
-   - [US17 — Tree attribute correction](#us17--tree-attribute-correction)
-   - [US18 — Merge duplicate records](#us18--merge-duplicate-records)
-   - [US19 — Split records](#us19--split-records)
-   - [US20 — Automatic deduplication](#us20--automatic-deduplication)
-   - [US21 — Role-based access control](#us21--role-based-access-control)
-   - [US22 — GDPR anonymisation of images](#us22--gdpr-anonymisation-of-images)
-   - [US23 — Survey zone creation](#us23--survey-zone-creation)
-   - [US24 — Survey zone editing](#us24--survey-zone-editing)
-   - [US25 — Task assignment](#us25--task-assignment)
-   - [US26 — User account creation](#us26--user-account-creation)
-   - [US27 — User role change](#us27--user-role-change)
-   - [US28 — User account deactivation](#us28--user-account-deactivation)
-   - [US29 — Inventory statistics](#us29--inventory-statistics)
-   - [US30 — Task monitoring](#us30--task-monitoring)
-   - [US31 — Inventory export](#us31--inventory-export)
-   - [US32 — Survey comparison](#us32--survey-comparison)
+7. [Container-Level Architecture](#7-container-level-architecture)
+8. [Components-Level Architecture](#8-components-level-architecture)
+9. [Mock-ups](#9-mock-ups)
 
 ---
 
@@ -56,26 +27,24 @@ import PresentationViewer from '~/components/PresentationViewer.astro';
 
 To be completed...
 
+---
+
 ## 2. Actors
-
 ### Field Surveyor
-
 User responsible for collecting information directly in the field, following assigned survey zones or tasks. They can view the trees to be checked, take photos, confirm the existence and location of trees, validate or correct species data, and add observations or other relevant characteristics.
 
 ### Municipal Technician
-
 Municipal professional responsible for managing and maintaining the tree inventory, ensuring data quality from both surveys and contributions by Tree Enthusiasts. They can validate new trees and submitted information, correct species, locations, and other attributes, and resolve duplicate records.
 
 ### Municipal Administrator
-
 User responsible for the general administration of the platform within the municipality, ensuring the system and its users are properly configured. They can manage accounts and permissions, create and organize survey zones, assign tasks to Field Surveyors, and oversee overall application usage. They have a comprehensive view of the inventory and platform operations, and can access statistics and information needed for city management.
 
 ### Tree Enthusiast
-
 Tree enthusiast who uses the application primarily to identify species and explore the existing tree population. They can take or upload photos of trees to obtain an identification, view information about nearby trees, and if they find a tree not yet registered, contribute photos, location data, and information to propose its cataloging. New contributions must subsequently be validated by a municipal user before officially becoming part of the inventory.
 
-## 3. Functional Requirements
+---
 
+## 3. Functional Requirements
 - **FR1:** The system must allow the selection of a map zone or the submission of GPS-tagged video, and detect trees in the resulting images/frames.
 - **FR2:** The system must display the detected trees on an interactive map, with individual records (source images, geographic position, characteristics).
 - **FR3:** The system must allow for the confirmation, rejection, or manual correction of a detected tree, and use these corrections to retrain the detection model.
@@ -89,8 +58,9 @@ Tree enthusiast who uses the application primarily to identify species and explo
 - **FR11:** The system must allow a Tree Enthusiast to check the status of their own submissions.
 - **FR12:** The system must provide inventory statistics aggregated by zone, accessible to a Municipal Administrator.
 
-## 4. Non-Functional Requirements
+---
 
+## 4. Non-Functional Requirements
 - **NFR1:** The system must support authentication and role-based access control.
 - **NFR2:** The system must comply with the GDPR regarding the processing of collected personal data.
 - **NFR3:** The system must ensure that each physical tree appears only once in the inventory, even if detected in multiple images.
@@ -107,8 +77,9 @@ Tree enthusiast who uses the application primarily to identify species and explo
 - **NFR14:** The system must display clear error messages when a submission is invalid or fails to process.
 - **NFR15:** A Tree Enthusiast must receive an email notification when the status of their submission changes (approved/rejected).
 
-## 5. Use Cases
+---
 
+## 5. Use Cases
 - **UC01:** Search Inventory (Actors: Tree Enthusiast, Field Surveyor, Municipal Technician, Municipal Administrator)
 - **UC02:** View Tree Record (Actors: Tree Enthusiast, Field Surveyor, Municipal Technician, Municipal Administrator)
 - **UC03:** Submit Photo/Video with GPS (Actors: Tree Enthusiast, Field Surveyor)
@@ -129,54 +100,45 @@ Tree enthusiast who uses the application primarily to identify species and explo
 - **UC18:** Export Georeferenced Inventory (Actor: Municipal Administrator)
 - **UC19:** Compare Surveys (Actor: Municipal Administrator)
 
+---
+
 ## 6. User Stories
-
-### US01 — Tree species identification from a photo
-
-**Traceability:** UC03
-
+### US01: Tree species identification from a photo
 > - **As a:** Tree Enthusiast  
 > - **I want:** to submit a photo of a tree  
 > - **So that:** I can find out which species or genus it is
 
 Background
-
 - Given I am logged in as a Tree Enthusiast
 - And I am on the tree identification page
 
-Scenario 1: Submit an existing photo
-
+Scenario 01: Submit an existing photo
 - When I upload a photo of a tree from my device
 - Then the system shows a provisional identification of the species or genus
 - And the result is marked as pending validation by a Municipal Technician
 
-Scenario 2: Take a photo in the moment
-
+Scenario 02: Take a photo in the moment
 - Given I have allowed camera access
 - When I take a photo of a tree
 - Then the system shows a provisional identification of the species or genus
 - And the result is marked as pending validation by a Municipal Technician
 
-Scenario 3: Identification limited to the genus
-
+Scenario 03: Identification limited to the genus
 - Given the species of the photographed tree cannot be determined
 - When I submit a photo of that tree
 - Then the system shows the genus of the tree
 - And informs me that the species could not be determined
 
-Scenario 4: Photo without a detectable tree
-
+Scenario 04: Photo without a detectable tree
 - When I submit a photo where no tree is detected
 - Then the system informs me that no tree was found
 - And suggests that I take a clearer photo of the tree
 
-Scenario 5: Photo without GPS data
-
+Scenario 05: Photo without GPS data
 - When I upload a photo that has no GPS metadata
 - Then the system asks me to indicate the tree's location on the map
 
-Scenario 6: Tree already in the inventory
-
+Scenario 06: Tree already in the inventory
 - Given the photographed tree already exists in the inventory
 - When I submit a photo of that tree
 - Then the system shows me the information of the existing tree
@@ -184,187 +146,148 @@ Scenario 6: Tree already in the inventory
 
 ---
 
-### US02 — Own submissions status
-
-**Traceability:** UC05
-
+### US02: Own submissions status
 > - **As a:** Tree Enthusiast  
 > - **I want:** to check the status of my submissions  
 > - **So that:** I know whether my contributions were accepted
 
 Background
-
 - Given I am logged in as a Tree Enthusiast
 
-Scenario 1: List my submissions with their status
-
+Scenario 01: List my submissions with their status
 - Given I have submitted several photos
 - When I open my submissions
 - Then each submission shows its date and its status as "Pending validation", "Approved" or "Rejected"
 
-Scenario 2: Only my own submissions are shown
-
+Scenario 02: Only my own submissions are shown
 - Given there are submissions from me and from other users
 - When I open my submissions
 - Then I only see the submissions I made
 
-Scenario 3: Rejected submission shows the reason
-
+Scenario 03: Rejected submission shows the reason
 - Given one of my submissions was rejected by a Municipal Technician
 - When I open that submission
 - Then I see the reason given for the rejection
 
-Scenario 4: No submissions yet
-
+Scenario 04: No submissions yet
 - Given I have not submitted any photo
 - When I open my submissions
 - Then the system informs me that I have no submissions
 
 ---
 
-### US03 — Tree map search
-
-**Traceability:** UC01 · FR5
-
+### US03: Tree map search
 > - **As a:** Tree Enthusiast  
 > - **I want:** to search trees on a map  
 > - **So that:** I can explore the trees around me
 
 Background
-
 - Given I am logged in as a Tree Enthusiast
 
-Scenario 1: Map centred on the user's location
-
+Scenario 01: Map centred on the user's location
 - Given I have allowed location access
 - When I open the tree map
 - Then the map is centred on my current location
 - And the registered trees nearby are shown as markers
 
-Scenario 2: Location access denied
-
+Scenario 02: Location access denied
 - Given I have not allowed location access
 - When I open the tree map
 - Then the map is centred on a default area of the municipality
 
-Scenario 3: Search returns results
-
+Scenario 03: Search returns results
 - Given the inventory contains trees of the species "Quercus robur"
 - When I search for "Quercus robur"
 - Then only trees of the species "Quercus robur" are shown on the map
 
-Scenario 4: Search returns no results
-
+Scenario 04: Search returns no results
 - Given I am on the tree map
 - When I search for a term that matches no trees
 - Then the system informs me that no trees were found
 
-Scenario 5: Trees pending validation are not shown
-
+Scenario 05: Trees pending validation are not shown
 - Given there are trees pending validation
 - When I open the tree map
 - Then trees pending validation are not shown on the map
 
 ---
 
-### US04 — Tree record
-
-**Traceability:** UC02
-
+### US04: Tree record
 > - **As a:** Tree Enthusiast  
 > - **I want:** to open the record of a tree  
 > - **So that:** I can learn about it
 
 Background
-
 - Given I am logged in as a Tree Enthusiast
 - And I am on the tree map
 
-Scenario 1: View tree details
-
+Scenario 01: View tree details
 - When I select a tree marker
 - Then I see the tree's source images, geographic position and characteristics (species or genus, size and visible signs of poor condition)
 
 ---
 
-### US05 — Assigned survey tasks
-
-**Traceability:** UC06
-
+### US05: Assigned survey tasks
 > - **As a:** Field Surveyor  
 > - **I want:** to view the tasks assigned to me  
 > - **So that:** I know where I need to collect data
 
 Background
-
 - Given I am logged in as a Field Surveyor
 
-Scenario 1: Surveyor sees only their own tasks
-
+Scenario 01: Surveyor sees only their own tasks
 - Given there are tasks assigned to me and to other surveyors
 - When I open my task list
 - Then I only see the tasks assigned to me
 
-Scenario 2: Task zone shown on the map
-
+Scenario 02: Task zone shown on the map
 - Given I have a task assigned to me
 - When I select the task
 - Then its zone is outlined on the map
 
-Scenario 3: Trees to be checked shown on the map
-
+Scenario 03: Trees to be checked shown on the map
 - Given I have a task whose zone contains trees to be checked
 - When I select the task
 - Then the trees to be checked are marked on the map
 
-Scenario 4: Task deadline and status
-
+Scenario 04: Task deadline and status
 - Given I have tasks assigned to me
 - When I open my task list
 - Then each task shows its deadline
 - And its status as "Not started", "In progress" or "Completed"
 
-Scenario 5: No tasks assigned
-
+Scenario 05: No tasks assigned
 - Given I have no tasks assigned to me
 - When I open my task list
 - Then the system informs me that I have no assigned tasks
 
 ---
 
-### US06 — Submission within an assigned task
-
-**Traceability:** UC04 · UC03 · FR1
-
+### US06: Submission within an assigned task
 > - **As a:** Field Surveyor  
 > - **I want:** to submit a photo within one of my assigned tasks  
 > - **So that:** the tree I find in the zone is linked to that task
 
 Background
-
 - Given I am logged in as a Field Surveyor
 - And I have a task assigned for a certain zone
 
-Scenario 1: Submit a photo within the task
-
+Scenario 01: Submit a photo within the task
 - When I submit a photo with GPS data taken inside the task zone
 - Then the submission is linked to the task
 - And it is added to the pending validation queue
 
-Scenario 2: First submission starts the task
-
+Scenario 02: First submission starts the task
 - Given my task has the status "Not started"
 - When I submit a photo with GPS data taken inside the task zone
 - Then the task status changes to "In progress"
 
-Scenario 3: Photo taken outside the task zone
-
+Scenario 03: Photo taken outside the task zone
 - When I submit a photo with GPS data taken outside the task zone
 - Then the submission is not accepted for this task
 - And the system informs me that the photo is outside the task zone
 
-Scenario 4: Submitting to a completed task
-
+Scenario 04: Submitting to a completed task
 - Given my task has the status "Completed"
 - When I try to submit new data to that task
 - Then the submission is not accepted
@@ -372,58 +295,45 @@ Scenario 4: Submitting to a completed task
 
 ---
 
-### US07 — Tree detection from a video
-
-**Traceability:** UC03 · FR1
-
+### US07: Tree detection from a video
 > - **As a:** Field Surveyor  
 > - **I want:** to submit a video with GPS data  
 > - **So that:** the trees along my route are detected without photographing each one
 
 Background
-
 - Given I am logged in as a Field Surveyor
 
-Scenario 1: Detect trees in a video
-
+Scenario 01: Detect trees in a video
 - When I submit a video with GPS data that shows trees
 - Then the system detects the trees in the video frames
 - And each detected tree is added to the pending validation queue with its estimated position
 
-Scenario 2: Video without detectable trees
-
+Scenario 02: Video without detectable trees
 - When I submit a video where no tree is detected
 - Then the system informs me that no trees were found
 
-Scenario 3: Video without GPS data
-
+Scenario 03: Video without GPS data
 - When I submit a video that has no GPS metadata
 - Then the submission is not accepted
 - And the system informs me that GPS data is required
 
 ---
 
-### US08 — Task progress
-
-**Traceability:** UC07
-
+### US08: Task progress
 > - **As a:** Field Surveyor  
 > - **I want:** to see my progress on a task  
 > - **So that:** I know how much of the zone is left to survey
 
 Background
-
 - Given I am logged in as a Field Surveyor
 
-Scenario 1: View the progress of a task in progress
-
+Scenario 01: View the progress of a task in progress
 - Given I have a task in progress
 - When I open the task
 - Then I see the percentage of the zone already covered
 - And the number of trees detected so far
 
-Scenario 2: View the progress of a task not started
-
+Scenario 02: View the progress of a task not started
 - Given I have a task that has not started
 - When I open the task
 - Then I see 0% of the zone covered
@@ -431,359 +341,283 @@ Scenario 2: View the progress of a task not started
 
 ---
 
-### US09 — Task completion
-
-**Traceability:** UC08
-
+### US09: Task completion
 > - **As a:** Field Surveyor  
 > - **I want:** to mark a task as complete  
 > - **So that:** the municipality knows the zone has been surveyed
 
 Background
-
 - Given I am logged in as a Field Surveyor
 
-Scenario 1: Mark a task as complete
-
+Scenario 01: Mark a task as complete
 - Given I have a task in progress
 - When I mark the task as complete
 - Then the task status changes to "Completed"
 - And the administrator is notified
 
-Scenario 2: Completed task cannot be completed again
-
+Scenario 02: Completed task cannot be completed again
 - Given a task is already completed
 - When I open the task
 - Then I cannot mark it as complete again
 
 ---
 
-### US10 — In-field tree confirmation
-
-**Traceability:** FR5
-
+### US10: In-field tree confirmation
 > - **As a:** Field Surveyor  
 > - **I want:** to confirm a detected tree  
 > - **So that:** its existence and position are verified on the ground
 
 Background
-
 - Given I am logged in as a Field Surveyor
 - And I have selected a task whose zone contains a detected tree
 
-Scenario 1: Confirm the tree at the indicated position
-
+Scenario 01: Confirm the tree at the indicated position
 - When I confirm that the tree exists at the indicated position
 - Then the tree is marked as confirmed by me
 - And it is added to the pending validation queue
 
-Scenario 2: Confirm the tree at a different position
-
+Scenario 02: Confirm the tree at a different position
 - When I move the tree marker to its real position and confirm
 - Then the tree is marked as confirmed by me at the new position
 - And it is added to the pending validation queue
 
 ---
 
-### US11 — In-field species correction
-
-**Traceability:** FR5
-
+### US11: In-field species correction
 > - **As a:** Field Surveyor  
 > - **I want:** to correct the species or genus of a detected tree  
 > - **So that:** the inventory has the right species or genus
 
 Background
-
 - Given I am logged in as a Field Surveyor
 - And I have selected a task whose zone contains a detected tree
 
-Scenario 1: Correct the species or genus
-
+Scenario 01: Correct the species or genus
 - When I change the species or genus of the tree
 - Then the new species or genus is saved as my proposed correction
 - And the correction is added to the pending validation queue
 
-Scenario 2: Correction is not applied before validation
-
+Scenario 02: Correction is not applied before validation
 - Given I have proposed a new species or genus for a tree
 - When I view the official inventory record of that tree
 - Then it still shows the previous species or genus until a Municipal Technician validates my correction
 
 ---
 
-### US12 — In-field observations
-
+### US12: In-field observations
 > - **As a:** Field Surveyor  
 > - **I want:** to add observations to a tree  
 > - **So that:** the Municipal Technician has the context needed to validate it
 
 Background
-
 - Given I am logged in as a Field Surveyor
 - And I have selected a task whose zone contains a detected tree
 
-Scenario 1: Add observations
-
+Scenario 01: Add observations
 - When I write observations about the tree and save
 - Then they are saved with the tree
 - And they are shown to the Municipal Technician
 
-Scenario 2: Empty observation
-
+Scenario 02: Empty observation
 - When I try to save an observation without any text
 - Then the observation is not saved
 
 ---
 
-### US13 — In-field rejection of a detection
-
-**Traceability:** FR5
-
+### US13: In-field rejection of a detection
 > - **As a:** Field Surveyor  
 > - **I want:** to reject a detection that is not a tree  
 > - **So that:** wrong detections do not enter the inventory
 
 Background
-
 - Given I am logged in as a Field Surveyor
 - And I have selected a task whose zone contains a detected tree
 
-Scenario 1: Reject a false detection
-
+Scenario 01: Reject a false detection
 - When I mark the detection as not being a tree
 - Then the detection is flagged as rejected by me
 - And it is added to the pending validation queue
 
-Scenario 2: Rejected detection stays until validated
-
+Scenario 02: Rejected detection stays until validated
 - Given I have flagged a detection as not being a tree
 - When a Municipal Technician has not yet reviewed it
 - Then the detection is not removed from the inventory
 
 ---
 
-### US14 — Tree detection in a map zone
-
-**Traceability:** FR1
-
+### US14: Tree detection in a map zone
 > - **As a:** Municipal Technician  
 > - **I want:** to select a zone on the map to detect its trees  
 > - **So that:** the inventory grows without surveying tree by tree
 
 Background
-
 - Given I am logged in as a Municipal Technician
 - And I am on the tree map
 
-Scenario 1: Select a zone to detect trees
-
+Scenario 01: Select a zone to detect trees
 - When I select a zone on the map and start the detection
 - Then the system detects the trees in the images of that zone
 - And each detected tree is added to the pending validation queue with its estimated position and detection confidence
 
-Scenario 2: Zone without detectable trees
-
+Scenario 02: Zone without detectable trees
 - Given I have selected a zone where no tree is detected
 - When the detection finishes
 - Then the system informs me that no trees were found in the zone
 
-Scenario 3: Zone without available images
-
+Scenario 03: Zone without available images
 - Given I have selected a zone that has no images available
 - When I start the detection
 - Then the detection is not started
 - And the system informs me that there are no images for that zone
 
-Scenario 4: Trees already in the inventory are not created again
-
+Scenario 04: Trees already in the inventory are not created again
 - Given the selected zone already contains registered trees
 - When the system detects the trees in the zone
 - Then the trees already in the inventory are not created again
 
 ---
 
-### US15 — Check pending items queue
-
-**Traceability:** UC09 · UC02
-
+### US15: Check pending items queue
 > - **As a:** Municipal Technician  
 > - **I want:** to review the queue of pending items  
 > - **So that:** I can check each item before it enters the official inventory
 
 Background
-
 - Given I am logged in as a Municipal Technician
 
-Scenario 1: List pending items
-
+Scenario 01: List pending items
 - Given there are pending detections and submissions
 - When I open the validation queue
 - Then each item shows its source images, position and detection confidence
 
-Scenario 2: Open a pending item
-
+Scenario 02: Open a pending item
 - Given there are pending items
 - When I select an item in the queue
 - Then I see its full tree record
 
-Scenario 3: Empty queue
-
+Scenario 03: Empty queue
 - Given there are no pending items
 - When I open the validation queue
 - Then the system informs me that there are no items to review
 
 ---
 
-### US16 — Validation of pending items
-
-**Traceability:** UC10
-
+### US16: Validation of pending items
 > - **As a:** Municipal Technician  
 > - **I want:** to approve or reject a pending item  
 > - **So that:** only reliable data enters the official inventory
 
 Background
-
 - Given I am logged in as a Municipal Technician
 - And I am reviewing a pending item
 
-Scenario 1: Approve an item
-
+Scenario 01: Approve an item
 - When I approve it
 - Then the item is added to the official inventory
 
-Scenario 2: Approval is stored for model retraining
-
+Scenario 02: Approval is stored for model retraining
 - When I approve the item
 - Then the detection is stored as a confirmed example for retraining the detection model
 
-Scenario 3: Reject an item with a reason
-
+Scenario 03: Reject an item with a reason
 - When I reject it and provide a reason
 - Then the item is not added to the official inventory
 - And the reason is stored with the item
 
-Scenario 4: Reject an item without a reason
-
+Scenario 04: Reject an item without a reason
 - When I try to reject it without providing a reason
 - Then the rejection is not accepted
 - And the system asks me for a reason
 
-Scenario 5: Rejection is stored for model retraining
-
+Scenario 05: Rejection is stored for model retraining
 - When I reject the item with a reason
 - Then the detection is stored as a negative example for retraining the detection model
 
 ---
 
-### US17 — Tree attribute correction
-
-**Traceability:** UC11
-
+### US17: Tree attribute correction
 > - **As a:** Municipal Technician  
 > - **I want:** to correct the attributes of a tree  
 > - **So that:** the inventory data is accurate
 
 Background
-
 - Given I am logged in as a Municipal Technician
 - And I am viewing a tree record
 
-Scenario 1: Correct the species or genus
-
+Scenario 01: Correct the species or genus
 - When I change the species or genus and save
 - Then the tree record shows the new species or genus
 
-Scenario 2: Correct the location
-
+Scenario 02: Correct the location
 - When I move the tree to a new position on the map and save
 - Then the tree record shows the new position
 
-Scenario 3: Correct the size or the condition
-
+Scenario 03: Correct the size or the condition
 - When I edit the size or the visible signs of poor condition of the tree and save
 - Then the tree record shows the updated size and condition
 
-Scenario 4: Correction is recorded in the history
-
+Scenario 04: Correction is recorded in the history
 - When I save a correction
 - Then the tree's history records who made it, when, and the previous and new values
 
-Scenario 5: View the tree history
-
+Scenario 05: View the tree history
 - When I open a tree record
 - Then I see its history of merges, splits and corrections
 
-Scenario 6: Correction is stored for model retraining
-
+Scenario 06: Correction is stored for model retraining
 - When I save a correction to the species, genus or location of a detected tree
 - Then the corrected data is stored as labelled data for retraining the detection model
 
 ---
 
-### US18 — Merge duplicate records
-
-**Traceability:** UC12
-
+### US18: Merge duplicate records
 > - **As a:** Municipal Technician  
 > - **I want:** to merge duplicate tree records  
 > - **So that:** each physical tree appears only once in the inventory
 
 Background
-
 - Given I am logged in as a Municipal Technician
 
-Scenario 1: Merge two or more records
-
+Scenario 01: Merge two or more records
 - Given there are two or more records of the same physical tree
 - When I select them and merge them
 - Then a single record remains
 - And it keeps all source images from the merged records
 - And the merge is recorded in the tree's history
 
-Scenario 2: Merge with a single record selected
-
+Scenario 02: Merge with a single record selected
 - Given I have selected only one record
 - When I try to merge
 - Then the system informs me that at least two records are required
 
-Scenario 3: Merge records with conflicting attributes
-
+Scenario 03: Merge records with conflicting attributes
 - Given the selected records have different species
 - When I merge them
 - Then I must choose which species the resulting record keeps
 
 ---
 
-### US19 — Split records
-
-**Traceability:** UC12
-
+### US19: Split records
 > - **As a:** Municipal Technician  
 > - **I want:** to split a record that contains more than one tree  
 > - **So that:** each physical tree appears only once in the inventory
 
 Background
-
 - Given I am logged in as a Municipal Technician
 
-Scenario 1: Split a record into separate trees
-
+Scenario 01: Split a record into separate trees
 - Given a record contains images of more than one physical tree
 - When I split it and assign each source image to a resulting tree
 - Then a separate record is created for each tree
 - And the split is recorded in the history of each resulting tree
 
-Scenario 2: Image left unassigned
-
+Scenario 02: Image left unassigned
 - Given I am splitting a record
 - When I try to confirm without assigning every source image
 - Then the split is not accepted
 - And the system shows which images are unassigned
 
-Scenario 3: Split into fewer than two trees
-
+Scenario 03: Split into fewer than two trees
 - Given I am splitting a record
 - When I assign all source images to a single resulting tree
 - Then the split is not accepted
@@ -791,60 +625,47 @@ Scenario 3: Split into fewer than two trees
 
 ---
 
-### US20 — Automatic deduplication
-
-**Traceability:** UC03
-
+### US20: Automatic deduplication
 > - **As a:** Municipal Technician  
 > - **I want:** duplicate detections to be recognised before they reach my queue  
 > - **So that:** I spend less time merging records manually
 
 Background
-
 - Given I am logged in as a Municipal Technician
 
-Scenario 1: New detection matches an existing tree
-
+Scenario 01: New detection matches an existing tree
 - Given a tree is already registered at a certain position
 - When a new image shows the same tree at that position
 - Then no new tree record is created
 - And the image is added to the existing record as a source image
 
-Scenario 2: Same tree in several images or video frames
-
+Scenario 02: Same tree in several images or video frames
 - Given a submission contains several images or video frames of the same physical tree
 - When the system processes the submission
 - Then only one tree record is created for them
 
-Scenario 3: Position estimated by triangulation
-
+Scenario 03: Position estimated by triangulation
 - Given several images of the same physical tree were taken from different positions
 - When the system processes the images
 - Then the position of the tree is estimated by triangulating the detections
 - And the tree record shows the estimated position
 
-Scenario 4: New detection matches no existing tree
-
+Scenario 04: New detection matches no existing tree
 - Given no registered tree exists near the detected position
 - When the system processes the detection
 - Then a new tree is added to the pending validation queue
 
 ---
 
-### US21 — Role-based access control
-
-**Traceability:** NFR1
-
+### US21: Role-based access control
 > - **As a:** Municipal Administrator  
 > - **I want:** each role to access only its own features  
 > - **So that:** the inventory and the platform configuration are protected
 
 Background
-
 - Given I am logged in as a Municipal Administrator
 
-Scenario 1: Access to restricted pages
-
+Scenario 01: Access to restricted pages
 - Given I am logged in as a specific role
 - When I try to open a page
 - Then access is granted or denied according to my role
@@ -861,83 +682,66 @@ Scenario 1: Access to restricted pages
 | Municipal Administrator | Account management | Granted |
 | Municipal Administrator | Survey zone management | Granted |
 
-Scenario 2: Restricted data requested directly
-
+Scenario 02: Restricted data requested directly
 - Given I am logged in as a Field Surveyor
 - When I try to open a task assigned to another Field Surveyor
 - Then the system refuses the request
 
 ---
 
-### US22 — GDPR anonymisation of images
-
-**Traceability:** FR2 · NFR2
-
+### US22: GDPR anonymisation of images
 > - **As a:** Municipal Administrator  
 > - **I want:** images to be anonymised automatically before they are saved  
 > - **So that:** the municipality complies with GDPR
 
 Background
-
 - Given I am logged in as a Municipal Administrator
 
-Scenario 1: Faces are blurred
-
+Scenario 01: Faces are blurred
 - Given a submitted photo contains people's faces
 - When the system saves the photo
 - Then all visible faces are blurred in the stored image
 
-Scenario 2: License plates are blurred
-
+Scenario 02: License plates are blurred
 - Given a submitted photo contains vehicle license plates
 - When the system saves the photo
 - Then all visible license plates are blurred in the stored image
 
-Scenario 3: Video frames are blurred
-
+Scenario 03: Video frames are blurred
 - Given a submitted video contains faces or license plates
 - When the system extracts and saves frames from the video
 - Then all visible faces and license plates are blurred in every saved frame
 
-Scenario 4: Images from a map zone are blurred
-
+Scenario 04: Images from a map zone are blurred
 - Given the images of a zone selected for detection contain faces or license plates
 - When the system saves the images
 - Then all visible faces and license plates are blurred
 
-Scenario 5: Original image is never stored
-
+Scenario 05: Original image is never stored
 - Given a submitted photo contains faces or license plates
 - When the system saves the photo
 - Then no unblurred version of the image is stored
 
-Scenario 6: Photo without people or vehicles
-
+Scenario 06: Photo without people or vehicles
 - Given a submitted photo contains no faces or license plates
 - When the system saves the photo
 - Then the stored image is not altered
 
 ---
 
-### US23 — Survey zone creation
-
-**Traceability:** UC14
-
+### US23: Survey zone creation
 > - **As a:** Municipal Administrator  
 > - **I want:** to create a survey zone on the map  
 > - **So that:** an area of the municipality can be surveyed
 
 Background
-
 - Given I am logged in as a Municipal Administrator
 
-Scenario 1: Create a survey zone
-
+Scenario 01: Create a survey zone
 - When I draw a zone on the map and give it a name
 - Then the zone is saved and available to be assigned
 
-Scenario 2: Create a zone without a name
-
+Scenario 02: Create a zone without a name
 - Given I am drawing a new survey zone
 - When I try to save it without a name
 - Then the zone is not saved
@@ -945,184 +749,144 @@ Scenario 2: Create a zone without a name
 
 ---
 
-### US24 — Survey zone editing
-
-**Traceability:** UC14
-
+### US24: Survey zone editing
 > - **As a:** Municipal Administrator  
 > - **I want:** to edit a survey zone  
 > - **So that:** the zone stays aligned with the area to be surveyed
 
 Background
-
 - Given I am logged in as a Municipal Administrator
 - And there is a saved survey zone
 
-Scenario 1: Edit the name or the boundary of a zone
-
+Scenario 01: Edit the name or the boundary of a zone
 - When I change its name or its boundary and save
 - Then the zone shows the new name and boundary
 
-Scenario 2: Edit a zone leaving the name empty
-
+Scenario 02: Edit a zone leaving the name empty
 - When I clear its name and try to save
 - Then the change is not saved
 - And the system asks me to provide a name
 
 ---
 
-### US25 — Task assignment
-
-**Traceability:** UC15 · UC14
-
+### US25: Task assignment
 > - **As a:** Municipal Administrator  
 > - **I want:** to assign a survey zone to a Field Surveyor  
 > - **So that:** each surveyor knows where to collect data
 
 Background
-
 - Given I am logged in as a Municipal Administrator
 
-Scenario 1: Assign a zone to a Field Surveyor
-
+Scenario 01: Assign a zone to a Field Surveyor
 - Given there is a saved survey zone
 - When I assign it to a Field Surveyor with a deadline
 - Then a task is created with the status "Not started"
 - And the task appears in that surveyor's task list
 
-Scenario 2: Assign a zone that has just been created
-
+Scenario 02: Assign a zone that has just been created
 - Given I am assigning a task and no saved zone fits
 - When I create a new zone and assign it to a Field Surveyor with a deadline
 - Then the zone is saved
 - And a task is created for it
 
-Scenario 3: Assign a task without a deadline
-
+Scenario 03: Assign a task without a deadline
 - Given I am assigning a zone to a Field Surveyor
 - When I try to confirm without setting a deadline
 - Then the assignment is not accepted
 - And the system asks me to set a deadline
 
-Scenario 4: Only Field Surveyors can be assigned
-
+Scenario 04: Only Field Surveyors can be assigned
 - Given I am assigning a zone
 - When I search for a user to assign it to
 - Then only users with the Field Surveyor role are listed
 
 ---
 
-### US26 — User account creation
-
-**Traceability:** UC13 · NFR1
-
+### US26: User account creation
 > - **As a:** Municipal Administrator  
 > - **I want:** to create a user account with a role  
 > - **So that:** each person has access to the features of their role
 
 Background
-
 - Given I am logged in as a Municipal Administrator
 
-Scenario 1: Create a user account with a role
-
+Scenario 01: Create a user account with a role
 - When I create an account and select a role (Field Surveyor, Municipal Technician or Municipal Administrator)
 - Then the account is created with the permissions of that role
 
-Scenario 2: Create an account with an email already in use
-
+Scenario 02: Create an account with an email already in use
 - Given an account already exists with a certain email
 - When I try to create another account with the same email
 - Then the account is not created
 - And the system informs me that the email is already registered
 
-Scenario 3: Create an account without a role
-
+Scenario 03: Create an account without a role
 - When I try to create an account without selecting a role
 - Then the account is not created
 - And the system asks me to select a role
 
 ---
 
-### US27 — User role change
-
-**Traceability:** UC13 · NFR1
-
+### US27: User role change
 > - **As a:** Municipal Administrator  
 > - **I want:** to change the role of a user  
 > - **So that:** the user's permissions follow their responsibilities
 
 Background
-
 - Given I am logged in as a Municipal Administrator
 - And a user account exists
 
-Scenario 1: Change a user's role
-
+Scenario 01: Change a user's role
 - When I change the user's role
 - Then the user has the permissions of the new role
 
-Scenario 2: Previous permissions are removed
-
+Scenario 02: Previous permissions are removed
 - Given the user had the role of Municipal Technician
 - When I change the user's role to Field Surveyor
 - Then the user can no longer access the validation queue
 
 ---
 
-### US28 — User account deactivation
-
-**Traceability:** UC13 · NFR1
-
+### US28: User account deactivation
 > - **As a:** Municipal Administrator  
 > - **I want:** to deactivate a user account  
 > - **So that:** people who no longer work with the platform cannot access it
 
 Background
-
 - Given I am logged in as a Municipal Administrator
 - And a user account is active
 
-Scenario 1: Deactivate a user account
-
+Scenario 01: Deactivate a user account
 - When I deactivate it
 - Then the user can no longer log in
 - And the records previously submitted by that user are kept
 
 ---
 
-### US29 — Inventory statistics
-
-**Traceability:** UC17
-
+### US29: Inventory statistics
 > - **As a:** Municipal Administrator  
 > - **I want:** to view statistics about the tree inventory  
 > - **So that:** I have the information needed for city management
 
 Background
-
 - Given I am logged in as a Municipal Administrator
 
-Scenario 1: View inventory statistics
-
+Scenario 01: View inventory statistics
 - When I open the statistics page
 - Then I see the total number of trees in the inventory
 - And the distribution of trees by species
 - And the number of items pending validation
 
-Scenario 2: View statistics by street or parish
-
+Scenario 02: View statistics by street or parish
 - When I group the statistics by street or by parish
 - Then I see the number of trees and the distribution by species for each street or parish
 
-Scenario 3: Statistics count only validated trees
-
+Scenario 03: Statistics count only validated trees
 - Given the inventory has validated trees and pending submissions
 - When I open the statistics page
 - Then the total number of trees counts only validated trees
 
-Scenario 4: Empty inventory
-
+Scenario 04: Empty inventory
 - Given the inventory contains no validated trees
 - When I open the statistics page
 - Then the total number of trees is 0
@@ -1130,97 +894,89 @@ Scenario 4: Empty inventory
 
 ---
 
-### US30 — Task monitoring
-
-**Traceability:** UC07
-
+### US30: Task monitoring
 > - **As a:** Municipal Administrator  
 > - **I want:** to monitor the progress of the tasks assigned to Field Surveyors  
 > - **So that:** I know how the survey is advancing
 
 Background
-
 - Given I am logged in as a Municipal Administrator
 
-Scenario 1: Monitor task progress across surveyors
-
+Scenario 01: Monitor task progress across surveyors
 - Given there are tasks assigned to several Field Surveyors
 - When I open the task overview
 - Then each task shows its surveyor, deadline, status and percentage of zone covered
 
-Scenario 2: No tasks created
-
+Scenario 02: No tasks created
 - Given no tasks have been assigned
 - When I open the task overview
 - Then the system informs me that there are no tasks
 
 ---
 
-### US31 — Inventory export
-
-**Traceability:** UC18 · FR4
-
+### US31: Inventory export
 > - **As a:** Municipal Administrator  
 > - **I want:** to export the georeferenced inventory  
 > - **So that:** I can use the data in other city management and reporting tools
 
 Background
-
 - Given I am logged in as a Municipal Administrator
 
-Scenario 1: Export the inventory in a chosen format
-
+Scenario 01: Export the inventory in a chosen format
 - Given the inventory contains validated trees
 - When I request an export in a chosen format
 - Then a file with the georeferenced inventory is downloaded
 - And it includes the position and characteristics of each tree
 
-Supported formats:
-
-- CSV
-- GeoJSON
-
-Scenario 2: Only validated trees are exported
-
+Scenario 02: Only validated trees are exported
 - Given the inventory has validated trees and pending submissions
 - When I export the inventory
 - Then the file contains only validated trees
 
-Scenario 3: Export an empty inventory
-
+Scenario 03: Export an empty inventory
 - Given the inventory contains no validated trees
 - When I try to export it
 - Then the system informs me that there is nothing to export
 
 ---
 
-### US32 — Survey comparison
-
-**Traceability:** UC19
-
+### US32: Survey comparison
 > - **As a:** Municipal Administrator  
 > - **I want:** to compare two surveys of the same zone  
 > - **So that:** I can see how the tree population has changed over time
 
 Background
-
 - Given I am logged in as a Municipal Administrator
 
-Scenario 1: Compare two surveys
-
+Scenario 01: Compare two surveys
 - Given a zone has two or more surveys
 - When I select two of them to compare
 - Then I see the trees added, removed and changed between the two surveys
 
-Scenario 2: Zone with a single survey
-
+Scenario 02: Zone with a single survey
 - Given a zone has only one survey
 - When I try to compare surveys for that zone
 - Then the system informs me that at least two surveys are required
 
-Scenario 3: Surveys of different zones
-
+Scenario 03: Surveys of different zones
 - Given I have selected surveys that belong to different zones
 - When I try to compare them
 - Then the comparison is not accepted
 - And the system informs me that both surveys must belong to the same zone
+
+---
+
+## 7. Container-Level Architecture
+![Architecture](../../assets/images/ms2/arch.png)
+
+---
+
+## 8. Components-Level Architecture
+![Architecture](../../assets/images/ms2/components.png)
+
+---
+
+## 9. Mock-ups
+[TreeLens Figma](https://www.figma.com/design/xKFeYZ6GmSnNIlgwnuKQAb/Sem-t%C3%ADtulo?node-id=0-1&p=f&t=hdrbce80SWQUXr1u-0)
+
+Check out our complete Figma mockups for the Treelens project. These include desktop and mobile versions. They include all the interfaces to be developed, dividing them among different users according to their permissions and role-based access.

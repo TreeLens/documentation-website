@@ -9,6 +9,17 @@ import PresentationViewer from '~/components/PresentationViewer.astro';
 
 ---
 
+## Table of Contents
+1. [Context](#1-context)
+2. [Problem](#2-problem)
+3. [Goals](#3-goals)
+4. [Important tasks for comprehensive development](#4-important-tasks-for-comprehensive-development)
+5. [Expected Results](#5-expected-results)
+6. [Related Work](#6-related-work)
+7. [High-Level Architecture](#7-high-level-architecture)
+
+---
+
 ## 1. Context
 Urban trees influence temperature, air quality, water drainage, and the well-being of city residents. For this reason, Law No. 59/2021 mandates that municipalities maintain an inventory of urban trees. In practice, this inventory is compiled in the field tree by tree by teams that traverse the streets to record each individual specimen.
 
@@ -37,14 +48,14 @@ As extensions, the project aims to characterize each tree (species or genus, siz
 
 During the first half of the year, the focus is on defining the architecture, getting the core pipeline operational, and validating the system in terms of performance, scalability, security, and model quality.
 
-## 4. Important tasks for comprehensive development
+## 4. Important Tasks for Comprehensive Development
 - **Analysis pipeline:** image collection from an area and video processing involving GPS, face and license plate blurring, tree detection, position estimation via triangulation between views, and fusion of repeated detections.
 - **Web application:** interactive map, zone selection, video upload, tree records with source images, and manual validation and correction.
 - **Data and infrastructure:** message queue for asynchronous processing, geospatial database for the inventory, NoSQL database for job status, object storage for images and videos, reverse proxy, and continuous integration.
 - **Model and data:** image annotation, training, evaluation, and error analysis.
 - **Management and documentation:** schedule, communication, use cases, requirements, legal and risk analysis, and presentation preparation.
 
-## 5. Expected results
+## 5. Expected Results
 By the end of the first half of the year, we expect to have:
 - the architecture and requirements documented;
 - a functional end-to-end pipeline, from image upload to the tree appearing on the map;
