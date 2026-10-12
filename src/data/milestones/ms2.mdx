@@ -24,22 +24,45 @@ import PresentationViewer from '~/components/PresentationViewer.astro';
 ---
 
 ## 1. State of the Art
+### 1.1. Manual and semi-automated municipal practice
+Municipal tree inventorying is still largely a manual process. Even the tools built specifically to support this work assume the data collection happens on foot: standard protocols like i-Tree Streets have staff walk selected street segments and record every tree along them by hand, relying on sampling rather than a full census precisely because visiting every single tree is considered too costly. i-Tree Eco and Streets are valuable once data exists, turning an inventory into reports on carbon sequestration, stormwater value, or air quality, but they analyze data that has already been collected manually. They do not collect it themselves, and they offer no way to keep that data current without repeating the same manual effort.
 
-To be completed...
+### 1.2. Collaborative inventory platforms
+A second generation of tools tries to distribute this manual effort across many people instead of a single survey team.
+
+**OpenTreeMap** lets municipalities, organizations, and residents jointly maintain a shared tree map: adding, editing, and photographing trees collaboratively, with ecosystem benefits calculated automatically once the data is in. This genuinely improves accessibility and participation, but every tree still has to be found, measured, and entered by a person standing in front of it. The platform organizes manual data entry; it does not replace it.
+
+**iNaturalist** goes a step further by using computer vision to suggest a species once a photo is uploaded, which the community then confirms. This is the closest any mainstream tool gets to what TreeLens does for detection. But the gap that matters is structural, not technical: an iNaturalist observation only exists because someone happened to be there and chose to photograph that specific tree. There is no systematic sweep of a defined zone, and critically, no way to know which trees in that zone have not been seen yet. Coverage depends entirely on where enthusiasts happen to walk, which means the inventory it produces is inherently incomplete and biased toward whatever areas are popular to visit.
+
+### 1.3. Research pipelines for automated tree mapping
+Academic work shows that detecting and locating trees automatically from street-level imagery is technically achievable. Pipelines built on Google Street View and aerial imagery can detect trees across multiple views of the same location, combine those detections to avoid double-counting, recognize species, and even track changes over time by comparing imagery from different dates. More recent work has released large public datasets joining city tree records with Street View and aerial imagery specifically to push this kind of automated monitoring forward as a serious research direction.
+
+The problem is that none of this ever becomes software a municipality can actually run. These projects stop at the research stage: a dataset, a model, and a set of offline results published in a paper. There is no interactive map for a technician to browse, no workflow for reviewing and correcting what the model got wrong, no way to assign survey zones to a team, no handling of the personal data (faces, license plates) that inevitably appears in street-level imagery, and no mechanism for human corrections to ever feed back into the model. They prove the idea works; they do not deliver a tool anyone outside a research lab can use.
+
+### 1.4. The gap in the market
+Put together, this leaves municipalities with a real and unresolved choice between two unsatisfying options. Either they use something ready to deploy today and accept that it will always depend on someone physically visiting, photographing, or confirming every tree by hand, or they look at what automated detection can do in research papers, and accept that none of it exists as a product they could actually log into and operate. There is currently no tool that is simultaneously automatic and genuinely ready for municipal use. Municipalities are left to either keep paying for manual labor indefinitely, or wait for research to eventually turn into product, something that, so far, has not happened in this space.
+
+### 1.5. Where TreeLens fits
+TreeLens is built to close exactly that gap. It brings together what research pipelines have shown is possible, automatic detection and geolocation from street-level imagery, with no need to visit each tree, with what municipal and collaborative platforms already get right: a usable interface, a validation workflow a technician can actually work with day to day, and a way to organize survey effort across a team.
+
+Three things set it apart from everything reviewed above, together:
+- **A validation and correction workflow designed for a municipal team, not a research script:** a Municipal Technician reviews a queue of pending detections, approves or rejects them with a reason, and resolves duplicate records, all with a full audit trail.
+- **A closed learning loop:** corrections made on the platform are stored and used to retrain the detection model, so the system keeps improving with use instead of being run once and left static. This is something none of the tools above do.
+- **GDPR compliance built in from the start, with automatic blurring of faces and license plates before any image is stored:** a legal obligation that street-level imagery unavoidably raises, and that research pipelines built for other contexts simply were not designed to handle.
 
 ---
 
 ## 2. Actors
-### Field Surveyor
+### *Field Surveyor*
 User responsible for collecting information directly in the field, following assigned survey zones or tasks. They can view the trees to be checked, take photos, confirm the existence and location of trees, validate or correct species data, and add observations or other relevant characteristics.
 
-### Municipal Technician
+### *Municipal Technician*
 Municipal professional responsible for managing and maintaining the tree inventory, ensuring data quality from both surveys and contributions by Tree Enthusiasts. They can validate new trees and submitted information, correct species, locations, and other attributes, and resolve duplicate records.
 
-### Municipal Administrator
+### *Municipal Administrator*
 User responsible for the general administration of the platform within the municipality, ensuring the system and its users are properly configured. They can manage accounts and permissions, create and organize survey zones, assign tasks to Field Surveyors, and oversee overall application usage. They have a comprehensive view of the inventory and platform operations, and can access statistics and information needed for city management.
 
-### Tree Enthusiast
+### *Tree Enthusiast*
 Tree enthusiast who uses the application primarily to identify species and explore the existing tree population. They can take or upload photos of trees to obtain an identification, view information about nearby trees, and if they find a tree not yet registered, contribute photos, location data, and information to propose its cataloging. New contributions must subsequently be validated by a municipal user before officially becoming part of the inventory.
 
 ---
