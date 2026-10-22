@@ -4,18 +4,33 @@ import landingImage from '~/assets/images/landing-page.png';
 import { getPermalink } from '~/utils/permalinks';
 import { milestones } from '~/data/milestones';
 
-import zorlak  from '~/assets/images/team/zorlak.jpeg';
-import delRey  from '~/assets/images/team/del-rey.jpeg';
-import kesha   from '~/assets/images/team/kesha.jpeg';
-import bora    from '~/assets/images/team/bora.jpeg';
-import peri    from '~/assets/images/team/peri.jpeg';
+import zorlak from '~/assets/images/team/zorlak.jpeg';
+import delRey from '~/assets/images/team/del-rey.jpeg';
+import kesha from '~/assets/images/team/kesha.jpeg';
+import bora from '~/assets/images/team/bora.jpeg';
+import peri from '~/assets/images/team/peri.jpeg';
 
 const team = [
-  { photo: zorlak,  name: 'Francisco Baptista', github: 'https://github.com/kikopb31' },
-  { photo: delRey,  name: 'Inês Batista',        github: 'https://github.com/InesLBatista' },
-  { photo: kesha,   name: 'Marcos Costa',        github: 'https://github.com/MarcosCost' },
-  { photo: bora,    name: 'Maria Quinteiro',     github: 'https://github.com/Maria0claraa' },
-  { photo: peri,    name: 'Luís Correia',        github: 'https://github.com/LuisPCNeri' },
+  { photo: zorlak, name: 'Francisco Baptista', role: 'Product Owner', github: 'https://github.com/kikopb31' },
+  {
+    photo: delRey,
+    name: 'Inês Batista',
+    role: 'Scrum Master + QA',
+    github: 'https://github.com/InesLBatista',
+  },
+  { photo: kesha, name: 'Marcos Costa', role: 'Database Engineer', github: 'https://github.com/MarcosCost' },
+  {
+    photo: bora,
+    name: 'Maria Quinteiro',
+    role: 'UI/UX + Frontend Lead',
+    github: 'https://github.com/Maria0claraa',
+  },
+  {
+    photo: peri,
+    name: 'Luís Correia',
+    role: 'DevOps + Architect',
+    github: 'https://github.com/LuisPCNeri',
+  },
 ];
 ---
 
@@ -24,11 +39,13 @@ const team = [
     <div class="pt-0 md:pt-[76px] pointer-events-none"></div>
     <div class="py-10 sm:py-16 md:py-32">
       <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-
         <!-- Coluna da Esquerda: Textos e Botão -->
         <div class="text-center md:text-left">
-          <h1 class="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-bold leading-tighter tracking-tighter mb-4 font-heading text-[#623B14] dark:text-[#e8c99a]">
-            Every <span class="text-[#5F7C4C] dark:text-[#7a9e62]">Tree</span> <br class="hidden sm:inline" />
+          <h1
+            class="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-bold leading-tighter tracking-tighter mb-4 font-heading text-[#623B14] dark:text-[#e8c99a]"
+          >
+            Every <span class="text-[#5F7C4C] dark:text-[#7a9e62]">Tree</span>
+            <br class="hidden sm:inline" />
             In Your City <br class="hidden sm:inline" />
             <span class="text-[#9CB66E]">Detected, Located and Mapped</span>
           </h1>
@@ -48,13 +65,8 @@ const team = [
 
         <!-- Coluna da Direita: Imagem -->
         <div class="relative flex justify-center">
-          <Image
-            src={landingImage}
-            alt="TreeLens illustration"
-            class="w-full max-w-2xl h-auto object-contain"
-          />
+          <Image src={landingImage} alt="TreeLens illustration" class="w-full max-w-2xl h-auto object-contain" />
         </div>
-
       </div>
     </div>
   </div>
@@ -63,24 +75,29 @@ const team = [
 <!-- SECÇÃO: Say Goodbye to Field Surveys (com margem superior para descer mais um pouco) -->
 <section id="features" class="mt-8 sm:mt-12 py-12 md:py-20 not-prose">
   <div class="max-w-7xl mx-auto px-4 sm:px-6">
-
-    <h2 class="text-2xl sm:text-3xl md:text-5xl lg:text-6xl font-bold text-center font-heading mb-8 md:mb-16 text-[#623B14] dark:text-[#e8c99a]">
+    <h2
+      class="text-2xl sm:text-3xl md:text-5xl lg:text-6xl font-bold text-center font-heading mb-8 md:mb-16 text-[#623B14] dark:text-[#e8c99a]"
+    >
       Say <span class="text-[#CB8F30]">Goodbye</span> to Field Surveys
     </h2>
 
     <div class="grid grid-cols-1 md:grid-cols-2 gap-x-16 gap-y-12">
-
       <!-- Item 1 -->
       <div class="flex items-start gap-5">
         <div class="flex-shrink-0 w-12 h-12 rounded-full bg-[#5F7C4C] flex items-center justify-center shadow-md">
           <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M3 8a1 1 0 011-1h8a1 1 0 011 1v8a1 1 0 01-1 1H4a1 1 0 01-1-1V8z" />
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M3 8a1 1 0 011-1h8a1 1 0 011 1v8a1 1 0 01-1 1H4a1 1 0 01-1-1V8z"
+            ></path>
           </svg>
         </div>
         <div>
           <h3 class="text-xl font-bold text-[#5F7C4C] mb-2">Image & Video Ingestion</h3>
           <p class="text-[1.05rem] text-[#4B2F13] dark:text-[#e8c99a]/66">
-            Select a zone on the map or upload GPS-tagged videos, with automatic blurring of faces and licence plates (GDPR).
+            Select a zone on the map or upload GPS-tagged videos, with automatic blurring of faces and licence plates
+            (GDPR).
           </p>
         </div>
       </div>
@@ -89,7 +106,11 @@ const team = [
       <div class="flex items-start gap-5">
         <div class="flex-shrink-0 w-12 h-12 rounded-full bg-[#5F7C4C] flex items-center justify-center shadow-md">
           <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7" />
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7"
+            ></path>
           </svg>
         </div>
         <div>
@@ -104,7 +125,11 @@ const team = [
       <div class="flex items-start gap-5">
         <div class="flex-shrink-0 w-12 h-12 rounded-full bg-[#5F7C4C] flex items-center justify-center shadow-md">
           <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
+            ></path>
           </svg>
         </div>
         <div>
@@ -119,7 +144,11 @@ const team = [
       <div class="flex items-start gap-5">
         <div class="flex-shrink-0 w-12 h-12 rounded-full bg-[#5F7C4C] flex items-center justify-center shadow-md">
           <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"
+            ></path>
           </svg>
         </div>
         <div>
@@ -129,87 +158,101 @@ const team = [
           </p>
         </div>
       </div>
-
     </div>
   </div>
 </section>
 
 <section class="py-6 sm:py-10 not-prose">
   <div class="max-w-7xl mx-auto px-4 sm:px-6">
-
-    <h3 class="text-xl sm:text-2xl font-semibold text-left font-heading mb-3 sm:mb-4 text-[#623B14] dark:text-[#e8c99a]">
+    <h3
+      class="text-xl sm:text-2xl font-semibold text-left font-heading mb-3 sm:mb-4 text-[#623B14] dark:text-[#e8c99a]"
+    >
       Development Team
     </h3>
 
     <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4 md:gap-6">
-      {team.map((member) => (
-        <a
-          href={member.github}
-          target="_blank"
-          rel="noopener noreferrer"
-          class="relative w-full rounded-2xl overflow-hidden shadow-lg block transition-transform duration-300 hover:-translate-y-2 hover:scale-[1.02]"
-        >
-          <Image
-            src={member.photo}
-            alt={member.name}
-            class="w-full h-48 sm:h-56 md:h-64 object-cover block"
-            width={480}
-            height={640}
-            quality={90}
-          />
-          <div class="absolute bottom-3 left-1/2 -translate-x-1/2 w-[85%]">
-            <span class="block text-center text-xs sm:text-sm font-semibold text-white bg-[#623B14]/80 backdrop-blur-sm px-2 py-1.5 rounded-xl whitespace-nowrap overflow-hidden text-ellipsis">
-              {member.name}
-            </span>
-          </div>
-        </a>
-      ))}
+      {
+        team.map((member) => (
+          <a
+            href={member.github}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="relative w-full rounded-2xl overflow-hidden shadow-lg block transition-transform duration-300 hover:-translate-y-2 hover:scale-[1.02]"
+          >
+            <Image
+              src={member.photo}
+              alt={member.name}
+              class="w-full h-64 sm:h-72 md:h-80 object-cover block"
+              width={480}
+              height={640}
+              quality={90}
+            />
+            <div class="absolute bottom-2.5 left-1/2 -translate-x-1/2 w-[90%]">
+              <div class="text-center text-white bg-[#623B14]/80 backdrop-blur-sm px-3 py-2 rounded-xl">
+                <span class="block text-sm sm:text-base font-semibold leading-tight truncate">{member.name}</span>
+                <span class="mt-0.5 block text-xs sm:text-sm font-medium leading-snug text-white/90">
+                  {member.role}
+                </span>
+              </div>
+            </div>
+          </a>
+        ))
+      }
     </div>
-
   </div>
 </section>
 
 <section class="py-6 sm:py-10 not-prose">
   <div class="max-w-7xl mx-auto px-4 sm:px-6">
-
-    <h3 class="text-xl sm:text-2xl font-semibold text-left font-heading mb-3 sm:mb-4 text-[#623B14] dark:text-[#e8c99a]">
+    <h3
+      class="text-xl sm:text-2xl font-semibold text-left font-heading mb-3 sm:mb-4 text-[#623B14] dark:text-[#e8c99a]"
+    >
       Milestones
     </h3>
 
     <!-- Imagens + descrição juntas por item -->
     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
-      {milestones.map((ms) => (
-        <a
-          href={getPermalink(`/milestones/${ms.id}`)}
-          class="flex flex-col gap-3 group"
-        >
-          <div class="relative w-full rounded-2xl overflow-hidden shadow-lg transition-transform duration-300 hover:-translate-y-2 hover:scale-[1.02]">
-            <img
-              src={ms.image.src}
-              alt={ms.title}
-              width={ms.image.width}
-              height={ms.image.height}
-              style="display:block; width:100%; height:auto;"
-              loading="lazy"
-            />
-            <div class="absolute bottom-3 left-1/2 -translate-x-1/2 w-[85%]">
-              <span class="block text-center text-xs sm:text-sm font-semibold text-white bg-[#623B14]/80 backdrop-blur-sm px-2 py-1.5 rounded-xl whitespace-nowrap overflow-hidden text-ellipsis">
-                {ms.title}
-              </span>
+      {
+        milestones.map((ms) => (
+          <a href={getPermalink(`/milestones/${ms.id}`)} class="flex flex-col gap-3 group">
+            <div class="relative w-full rounded-2xl overflow-hidden shadow-lg transition-transform duration-300 hover:-translate-y-2 hover:scale-[1.02]">
+              <img
+                src={ms.image.src}
+                alt={ms.title}
+                width={ms.image.width}
+                height={ms.image.height}
+                style="display:block; width:100%; height:auto;"
+                loading="lazy"
+              />
+              <div class="absolute bottom-3 left-1/2 -translate-x-1/2 w-[85%]">
+                <span class="block text-center text-xs sm:text-sm font-semibold text-white bg-[#623B14]/80 backdrop-blur-sm px-2 py-1.5 rounded-xl whitespace-nowrap overflow-hidden text-ellipsis">
+                  {ms.title}
+                </span>
+              </div>
             </div>
-          </div>
-          <div class="flex flex-col gap-1.5 px-1">
-            <div class="flex items-center gap-1.5 text-muted text-sm">
-              <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-              </svg>
-              <span>{ms.date}</span>
+            <div class="flex flex-col gap-1.5 px-1">
+              <div class="flex items-center gap-1.5 text-muted text-sm">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="w-4 h-4 flex-shrink-0"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
+                  />
+                </svg>
+                <span>{ms.date}</span>
+              </div>
+              <p class="text-sm text-muted leading-relaxed">{ms.description}</p>
             </div>
-            <p class="text-sm text-muted leading-relaxed">{ms.description}</p>
-          </div>
-        </a>
-      ))}
+          </a>
+        ))
+      }
     </div>
-
   </div>
 </section>
