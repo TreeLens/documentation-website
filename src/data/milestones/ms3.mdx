@@ -611,4 +611,19 @@ Surveyors, technicians and administrators must keep their credentials confidenti
 ---
 
 ## 6. Usability and Digital Accessibility
-- TO BE COMPLETED
+TreeLens is built for the community, so it has to be usable by as many people as possible. Citizens of any age, ability and level of digital experience can take part, and municipal staff use it as a daily work tool. In this milestone we reviewed our own interfaces for accessibility barriers, before testing with users, and corrected the problems we found.
+
+We analysed the Figma mockups of the whole project, mobile for the Tree Enthusiast and desktop and mobile for municipal roles, screen by screen. The criteria were the Web Content Accessibility Guidelines (WCAG) 2.2, level AA, the Portuguese Decree-Law 83/2018 on the accessibility of public-sector websites and applications, and the European Accessibility Act. For each screen we asked what barrier it could create for six groups of people: blind users and screen-reader users, people with low vision, colour-blind people, people with motor limitations, deaf people, and people with cognitive limitations or low digital literacy. Every problem was recorded with the screen and element, the affected profile, the WCAG criterion, a priority and a correction.
+
+This milestone does not include user testing or the System Usability Scale (SUS), which are planned for a later stage.6.2. Main problems found and corrections6.3. Other improvements
+
+The review also led to changes in the structure and consistency of the interface:
+
+Navigation bars, headers and footers are now single components, identical on every screen, and the mobile screens scroll instead of being cropped.
+Touch targets were enlarged (44 px recommended on mobile) and all text was raised to at least 12 px.
+Statuses such as Pending, Approved and Rejected, and XP zones on the map, are shown with text and an icon, so colour is never the only cue.
+Error messages, such as invalid credentials at login, appear as text next to the field, with an icon, and not only in red.
+Orange buttons have no dark outline, and all button text is either white or dark.
+The game is designed so that nobody is excluded or penalised aggressively: daily reminders are optional, with a configurable time and days of the week.
+
+The mockups can only prove part of the requirements. Properties such as accessible names, alternative text for images and maps, announcement of dynamic messages to screen readers, heading structure, keyboard navigation and visible focus can only be fully verified in the implemented application. They are therefore recorded as requirements for the development phase. The next steps are to test one complete flow with a screen reader (VoiceOver or TalkBack), to check keyboard-only navigation and zoom at 200% on the web version, and to evaluate the usability of the Tree Enthusiast and Municipal Technician flows with real users in the next milestone.

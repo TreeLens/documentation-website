@@ -5,7 +5,7 @@ date: 2026-11-02
 ---
 📅 Date: 02-11-2026
 
-📍 Place: IEETA - 1.104
+📍 Place: IEETA - 1.04
 
 👥 Participants
 - Francisco Baptista
