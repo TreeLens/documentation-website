@@ -23,11 +23,10 @@ date: 2026-11-03
 
 ---
 
-## 2. 🚨 Tips by Sebastião
+## 2. 🚨 Presentation Tips 
 - It is important to keep the slide featuring new use case diagrams to show evolution, however, given the time available, it should not be given too much emphasis, as it is not the focus of the presentation. Simply mention that we have developed new diagrams and that these can be found on the documentation website.
-- Spend more time on usability and accessibility slides
-- Focus on the opening sentence (recommendation from Professor João Almeida)
-- Be confident :)
+- Spend more time on usability and accessibility slides, and actually point to the changes made side by side
+- Focus more on the opening sentence
 
 ---
 
