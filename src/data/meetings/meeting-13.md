@@ -1,13 +1,14 @@
 ---
 id: 13
 title: 📝 Meeting 13
-date: 2026-11-13
+date: 2026-11-17
 ---
-📅 Date: 13-11-2026
+📅 Date: 17-11-2026
 
 📍 Place: IEETA
 
 👥 Participants
+- Francisco Baptista
 - Inês Batista
 - Marcos Costa
 - Maria Quinteiro
